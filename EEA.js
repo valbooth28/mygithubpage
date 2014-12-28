@@ -4,16 +4,17 @@
  * Purpose: Does all of the math for the Extended Euclidean Algorithm. 
   **/
 
+
+//Indexing Constants, for my own sanity
+var DIVIS_INDEX = 0;
+var DIVID_INDEX = 1;
+var REMAIN_INDEX = 2;
+
 /**
 	@param num1 an integer <= 10,000 that is greater than num2
 	@param num2 an integer <= 10,000
 */
 function EEA(num1, num2){
-	//Indexing Constants, for my own sanity
-	var DIVIS_INDEX = 0;
-	var DIVID_INDEX = 1;
-	var REMAIN_INDEX = 2;
-
 	//Vars for finding the GCD
 	var remainder;
 	var dividend;
@@ -54,15 +55,20 @@ function EEA(num1, num2){
 	//in Z(num1)
 	if(remainder === 0){
 		//TODO: Have the alert mention the actual GCD?
-		alert(num1.toString() + num2.toString() + "do not have a GCD of 1.\n" +
-			"Please enter two numbers with a GCD of 1");
+		alert(num1.toString() + " and " + num2.toString() + " do not have a GCD of 1.\n" +
+			"Please enter two numbers with a GCD of 1.");
 	}
-	
+
 	//Going back up in the Calcs to find the multiplicative inverse
 	//This will be done through a series of linear combinations
 	//Our final goal is to have EEACalc[1] = [factor1, num1, factor2, num2]
 	//Factor2 will be our multiplicative inverse
 	else{
+		alert("In the else?");
+		//First, print the gcd results
+		printCalculation(gcdCalcs);
+
+
 		//TODO: Figure out (do) while construct
 		//getting the last equation we found. It will be of the form:
 		//lastResult = divisor x dividend + remainder
@@ -103,21 +109,21 @@ function EEA(num1, num2){
 //@param Calc: a calculation object for either the GCD or inverse operation
 function printCalculation(Calc){
 	//The string representing the equation, to be printed out to the HTML page
-	var calcStr;
+	var calcStr = "";
 	
 	for (var key in Calc) {
 		//building the calcStr
 		if (Calc.hasOwnProperty(key)) {
-			//String = result
-			calcString += key.toString();
-			calcString += " = ";
-			calcString += Calc[key][DIVIS_INDEX].toString();
-			calcString += " x ";
-			calcString += Calc[key][DIVID_INDEX].toString();
-			calcString += " + ";
-			calcString += Calc[key][REMAIN_INDEX].toString();
+			calcStr += key.toString();
+			calcStr += " = ";
+			calcStr += Calc[key][DIVIS_INDEX].toString();
+			calcStr += " x ";
+			calcStr += Calc[key][DIVID_INDEX].toString();
+			calcStr += " + ";
+			calcStr += Calc[key][REMAIN_INDEX].toString();
+			calcStr += "<br />";
 			//TODO change
-			document.getElementById("demo").innerHTML = calcString;
+			document.getElementById("GCD calcs").innerHTML = calcStr;
 		}
 	}
 	

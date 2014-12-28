@@ -78,7 +78,7 @@ function readInput(){
 	}
 
 	//If you got this far, proceed with the calculations.
-	//EEA(num1, num2);
+	EEA(num1, num2);
 	
 }
 
