@@ -7,49 +7,86 @@
 
 
 function readInput(){
-	var num1;
-	var num2; 
 	//The greatest number that my EEA can do. Currently 10k because why not?
 	var MAX_NUM = 10000;
-	var errorStr = "you have entered is not an integer. Please enter an integer."
+	
+	//Error Strings
+	//TODO: Make these <= 80 length?
+	var notPosIntErrStr = "number you have entered is not a positive integer. Please enter a positive integer.";
+	var oneErrStr = "The multiplicative inverse of 1 is always 1.";
+	var zeroErrStr = "0 is not a valid number in a modular integer ring.";
+	var sameNumErrStr = "A modular integer ring of a number cannot contain itself. Please change one of the numbers.";
+	
+	var num1;
+	var num2; 
+
 	//Grabs the input from the two text boxes
-	num1 = document.getElementById("num1Input");
-	num2 = document.getElementById("num2Input");
+	num1 = document.getElementById('num1Input').value;
+	num2 = document.getElementById('num2Input').value;
 	
 	//Check that they are valid integers then convert them
-	if(isInteger(num1)){
-		num1 = parseInt(num1);
+	if(isPositiveInteger(num1)){
+		//Clarifying base ten just in case
+		num1 = parseInt(num1,10);
 	}
 	else{
-		alert("The first " + errorStr);
+		alert("The first " + notPosIntErrStr);
 		//TODO Be fancy and clear out the text boxes?
 		return;
 	}
 
 
-	if(isInteger(num2)){
-		num2 = parseInt(num2);
+	if(isPositiveInteger(num2)){
+		num2 = parseInt(num2,10);
 	}
 	else{
-		alert("The second " + errorStr);
+		alert("The second " + notPosIntErrStr);
 		//TODO Be fancy and clear out the text boxes?
 		return;
 	}
 
 	//Double check that they are within range
-	if(num1 > 10000){
-
+	if(num1 > MAX_NUM){
+		alert("Please enter a number between 1 and " + MAX_NUM.toString());
 	}
 
-	if(num2 > 10000){
-
+	else if(num2 > MAX_NUM){
+		alert("Please enter a number between 1 and " + MAX_NUM.toString());
 	}
+
+	//Check for zeroes or ones
+	if((num1 === 0) || (num2 === 0)){
+		alert(zeroErrStr);
+	}
+	else if((num1 === 1) || (num2 === 1)){
+		alert(oneErrStr);
+	}
+
+	//Check that the numbers are not the same, a modular integer ring of n
+	//contains numbers of 1,2, ... n-1
+	if(num1 === num2){
+		alert(sameNumErrStr);
+	}
+
+	//If num2 < num1, swap the numbers, because num1 should be a number
+	//with a multiplicative inverse mod num2 therefore mod2 is bigger
+	if(num1 > num2){
+		//NOTE: I hear it's faster to use a tmpVariable then a one liner
+		var tmpNum = num1;
+		num1 = num2;
+		num2 = tmpNum;
+	}
+
+	//If you got this far, proceed with the calculations.
+	//EEA(num1, num2);
+	
 }
 
 
 //NOTE: Inspiration for this function taken from http://bit.ly/13L47WF,
 //a stack overflow question
-function isInteger(n) {
-	return !isNaN(parseFloat(n)) && isFinite(n) && (n.indexOf(".") === -1);
+function isPositiveInteger(n) {
+	//Is it a number? Is it finite? Does it have a decimal or negative sign?
+	return !isNaN(parseFloat(n)) && isFinite(n) && (n.indexOf(".") === -1) && (n.indexOf("-") === -1);
 }
 

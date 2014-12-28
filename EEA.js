@@ -53,8 +53,8 @@ function EEA(num1, num2){
 	//If the remainder is zero, num2 does not have a multiplicative inverse
 	//in Z(num1)
 	if(remainder === 0){
-		//TODO: Have the alert mention the actual GCD
-		alert(num1.toString() + num2.toString() + "do not have a GCD of one.\n" +
+		//TODO: Have the alert mention the actual GCD?
+		alert(num1.toString() + num2.toString() + "do not have a GCD of 1.\n" +
 			"Please enter two numbers with a GCD of 1");
 	}
 	
