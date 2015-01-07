@@ -26,9 +26,11 @@ function EEA(num1, num2){
 	var gcdCalcs = new Array();
 
 	//Vars for finding the multiplicative inverse
-	var EEACalc = {};
+	var EEACalc = new Array();
 	var tempCalc;
 	var tempCalc2 = new Array();
+	var tempCalc3;
+	var old_result;
 	var old_divis;
 	var old_divid;
 	var old_remain;
@@ -48,7 +50,7 @@ function EEA(num1, num2){
 		gcdCalcs.push(newCalc); 
 		
 		//Reassign variables for next while loop run
-		lastResult = result;
+		// lastResult = result; No longer needed I think
 		result = divisor;
 		divisor = remainder;
 	}while(remainder > 1);
@@ -67,43 +69,40 @@ function EEA(num1, num2){
 	//Factor2 will be our multiplicative inverse
 	else{
 		
-		//alert("In the else?");
-		
 		//First, print the gcd results
 		printCalculation(gcdCalcs);
 
+		var index = gcdCalcs.length - 1;
 
-		// //TODO: Figure out (do) while construct
-		// //getting the last equation we found. It will be of the form:
-		// //lastResult = divisor x dividend + remainder
-		// tempCalc = gcdCalcs[lastResult];
-		// old_divisor = tempCalc[DIVIS_INDEX];
-		// old_dividend = tempCalc[DIVID_INDEX];
-		// old_remainder = tempCalc[REMAIN_INDEX];
+		//This while construct allows us to iterate backwards over gcdCalcs
+		//TODO: might change
+		while(index > 0){
+			//getting the last equation we found, which will be at the end of the array
+			tempCalc = gcdCalcs[index];
+			old_result = tempCalc[RESULT_INDEX];
+			old_divisor = tempCalc[DIVIS_INDEX];
+			old_dividend = tempCalc[DIVID_INDEX];
+			old_remainder = tempCalc[REMAIN_INDEX];
+			
+			//These two lines are making it so that EEA (w/a level of abstration)
+			//represents: remainder = lastResult x 1 - divisor x dividend
+			//NOTE: Due to the if/else, remainder should be 1
+			//NOTE: the minus sign will be explicit and is applied here
+			tempCalc2.push(old_remainder, old_result, 1, ((-1)*old_divisor), old_dividend);
+			EEACalc.push(tempCalc2);
+	
+			//Now we need to do some linear combinations.
+			//old_divisor should be the remainder one gcdCalc up, so get that equation
+			index-=1;
+			tempCalc = gcdCalc[index];
+			//Now we're editing tempCalc2 to show the intermediate step
+	
+	
+ 			//TODO: remember to check if we need to add or subtract our combination
+ 			//TODO: Show the mid step? If so we need an innerHTML = call
+ 			//Now we need to search our current EA Calculation to find where we are subsituting
+		}
 		
-		// //These two lines are making it so that EEA (w/a level of abstration)
-		// //represents: remainder = lastResult x 1 - divisor x dividend
-		// //NOTE: Due to the if/else, remainder should be 1
-		// //NOTE: the minus sign will be implied, and not actually in any number
-		// tempCalc2.push(lastResult, 1, old_divisor, old_dividend);
-		// EEACalc[old_remainder] = tempCalc2;
-
-		// //Now we need to do some linear combinations.
-		// //Divisor should be a previous remainder be in GCDCalcs, 
-		// //so now we loop to find that
-		// for (var key in gcdCalcs) {
-		// 	if (gcdCalcs.hasOwnProperty(key)) {
-		// 		if(gcdCalcs[key][REMAIN_INDEX] == old_divisor){
-		// 			//TODO: Should we remove it? TBT
-		// 			tempCalc = gcdCalcs[key];
-		// 			remainder = key;
-		// 			break;
-		// 		}
-		// 	}
- 	// 	}
- 	// 	//TODO: remember to check if we need to add or subtract our combination
- 	// 	//TODO: Show the mid step? If so we need an innerHTML = call
- 	// 	//Now we need to search our current EA Calculation to find where we are subsituting
 
 
  	}
