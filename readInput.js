@@ -70,7 +70,7 @@ function readInput(){
 
 	//If num2 < num1, swap the numbers, because num1 should be a number
 	//with a multiplicative inverse mod num2 therefore mod2 is bigger
-	if(num1 > num2){
+	if(num1 < num2){
 		//NOTE: I hear it's faster to use a tmpVariable then a one liner
 		var tmpNum = num1;
 		num1 = num2;
