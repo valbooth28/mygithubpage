@@ -7,8 +7,8 @@
 
 //Indexing Constants, for my own sanity
 var RESULT_INDEX = 0;
-var DIVIS_INDEX = 1;
-var DIVID_INDEX = 2;
+var DIVID_INDEX = 1;
+var DIVIS_INDEX = 2;
 var REMAIN_INDEX = 3;
 
 /**
@@ -29,7 +29,8 @@ function EEA(num1, num2){
 	var EEACalc = new Array();
 	var tempCalc;
 	var tempCalc2 = new Array();
-	var tempCalc3;
+	var tempCalc3 = new Array();
+	var replaceIndex;
 	var old_result;
 	var old_divis;
 	var old_divid;
@@ -40,13 +41,14 @@ function EEA(num1, num2){
 		remainder = result % divisor;
 		dividend = Math.floor(result/divisor);
 
+		//TODO: Change documentation
 		//NOTE: gcdCalcs is structured like so:
 		//result	: [divisor, dividend, remainder]
 		//divisor	: [remainder, newDividend, newRemainder]
 		//and so on and so forth
 		//Trying to change gcdCalcs to an array of arrays
 		newCalc = new Array();
-		newCalc.push(result, divisor, dividend, remainder);
+		newCalc.push(result, dividend, divisor, remainder);
 		gcdCalcs.push(newCalc); 
 		
 		//Reassign variables for next while loop run
@@ -68,49 +70,156 @@ function EEA(num1, num2){
 	//Our final goal is to have EEACalc[1] = [factor1, num1, factor2, num2]
 	//Factor2 will be our multiplicative inverse
 	else{
-		
 		//First, print the gcd results
 		printCalculation(gcdCalcs);
 
+		//TODO: Iterative structure, what and where?!
+		//TODO: better array variable names
+
 		var index = gcdCalcs.length - 1;
-
-		//This while construct allows us to iterate backwards over gcdCalcs
-		//TODO: might change
-		while(index > 0){
-			//getting the last equation we found, which will be at the end of the array
-			tempCalc = gcdCalcs[index];
-			old_result = tempCalc[RESULT_INDEX];
-			old_divisor = tempCalc[DIVIS_INDEX];
-			old_dividend = tempCalc[DIVID_INDEX];
-			old_remainder = tempCalc[REMAIN_INDEX];
-			
-			//These two lines are making it so that EEA (w/a level of abstration)
-			//represents: remainder = lastResult x 1 - divisor x dividend
-			//NOTE: Due to the if/else, remainder should be 1
-			//NOTE: the minus sign will be explicit and is applied here
-			tempCalc2.push(old_remainder, old_result, 1, ((-1)*old_divisor), old_dividend);
-			EEACalc.push(tempCalc2);
-	
-			//Now we need to do some linear combinations.
-			//old_divisor should be the remainder one gcdCalc up, so get that equation
-			index-=1;
-			tempCalc = gcdCalc[index];
-			//Now we're editing tempCalc2 to show the intermediate step
-	
-	
- 			//TODO: remember to check if we need to add or subtract our combination
- 			//TODO: Show the mid step? If so we need an innerHTML = call
- 			//Now we need to search our current EA Calculation to find where we are subsituting
-		}
 		
+		//getting the last equation we found, which will be at the end of the array
+		tempCalc = gcdCalcs[index];
+		result = tempCalc[RESULT_INDEX];
+		dividend = tempCalc[DIVID_INDEX];
+		divisor = tempCalc[DIVIS_INDEX];
+		remainder = tempCalc[REMAIN_INDEX];
+		
+		//These two lines are making it so that EEA (w/a level of abstration)
+		//represents: remainder = lastResult - dividend x divisor
+		//NOTE: Due to the if/else, remainder should be 1
+		//NOTE: the minus sign will be explicit and is applied here
+		tempCalc2.push(remainder, result, 1, ((-1)*dividend), divisor);
+		EEACalc.push(tempCalc2);
 
+		//Now we need to do some linear combinations.
+		//we always replace with one equation before us, so get that
+		index-=1;
+		tempCalc = gcdCalc[index];
 
+		//Using another tempCalc array,
+		//tempCalc3 will represent Result - old_divisor x dividend
+		old_result  = tempCalc[RESULT_INDEX];
+		old_divid   = tempCalc[DIVID_INDEX];
+		old_divis = tempCalc[DIVIS_INDEX];
+		old_remain  = tempCalc[REMAIN_INDEX];
+		tempCalc3.push(old_result, ((-1)*old_divid), old_divis);
+
+		//Find the index of the old remainder, and substitute there
+		replaceIndex = tempCalc2.indexOf(old_remain);
+
+		tempCalc2[replaceIndex] = tempCalc3;
+
+		//Now we need to do some combining
+		//NOTE: It's always the multiplication in the new equation that is getting combined 
+		//NOTE: This can probably be done better. Look into it later
+		//TODO: Remember negatives? I think I'm forgetting some
+		switch(replaceIndex){
+			//NOTE: The equations in the if/else are structured like so: 
+			//the index that is NOT the match is the one getting updated/
+			//so old index val = itself + the not matching value from the
+			//substituted equation, times the value before it's being
+			//multiplied by in tempCalc2
+			case 0:
+				if(old_divid === Math.abs(tempCalc2[2])){
+					tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+					
+				}
+				
+				else if(old_divid === Math.abs(tempCalc2[3])){
+					tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+					
+				}
+
+				else if(old_divis === Math.abs(tempCalc2[2])){
+					tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
+				}
+				
+				//i.e. old_divis === tempCalc2[3]
+				else{
+					tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
+				}
+		
+				break;
+
+			case 1:
+				if(old_divid === Math.abs(tempCalc2[2])){
+					tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+					
+				}
+				
+				else if(old_divid === Math.abs(tempCalc2[3])){
+					tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+					
+				}
+
+				else if(old_divis === Math.abs(tempCalc2[2])){
+					tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
+				}
+				
+				//i.e. old_divis === tempCalc2[3]
+				else{
+					tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
+				}
+				break;
+
+			case 2:
+				if(old_divid === Math.abs(tempCalc2[0])){
+					tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[3];
+					
+				}
+				
+				else if(old_divid === Math.abs(tempCalc2[1])){
+					tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[3];
+					
+				}
+
+				else if(old_divis === Math.abs(tempCalc2[0])){
+					tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[3];
+				}
+				
+				//i.e. old_divis === tempCalc2[1]
+				else{
+					tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[3];
+				}
+
+				break;
+
+			case 3:
+				if(old_divid === Math.abs(tempCalc2[0])){
+					tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[2];
+				}
+				
+				else if(old_divid === Math.abs(tempCalc2[1])){
+					tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[2];
+				}
+
+				else if(old_divis === Math.abs(tempCalc2[0])){
+					tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[2];
+				}
+				
+				//i.e. old_divis === tempCalc2[1]
+				else{
+					tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[2];
+				}
+
+				break;
+		}
+		//tempCalc3 is structured such that it's result - divisor x dividend,
+		//and the multiplication just got absorbed in the linear combination,
+		//So the replaceIndex can just be reset to the result part of temp3
+		tempCalc2[replaceIndex] = tempCalc3[0];
+		EEACalc.push(tempCalc2);
+		//TODO: End while construct HERE
  	}
 }
 
 //TODO: @param isGCD: a boolean for if we're printing the GCD or inverse calcs
 //@param Calc: an array of arrays
 function printCalculation(Calc){
+	//TODO: when we're in multiplicative inverse check for 1s that we don't
+	//need to print
+
 	//TODO: A check to see if we need to clear out the innerHTML element or not
 	//This can be done when we add the isGCD boolean
 	
