@@ -71,9 +71,8 @@ function EEA(num1, num2){
 	//Factor2 will be our multiplicative inverse
 	else{
 		//First, print the gcd results
-		printCalculation(gcdCalcs);
+		printCalculation(true, gcdCalcs);
 
-		//TODO: Iterative structure, what and where?!
 		//TODO: better array variable names
 
 		var index = gcdCalcs.length - 1;
@@ -94,150 +93,214 @@ function EEA(num1, num2){
 
 		//Now we need to do some linear combinations.
 		//we always replace with one equation before us, so get that
-		index-=1;
-		tempCalc = gcdCalc[index];
+		while(index > 0){
+			index-=1;
+			tempCalc = gcdCalcs[index];
 
-		//Using another tempCalc array,
-		//tempCalc3 will represent Result - old_divisor x dividend
-		old_result  = tempCalc[RESULT_INDEX];
-		old_divid   = tempCalc[DIVID_INDEX];
-		old_divis = tempCalc[DIVIS_INDEX];
-		old_remain  = tempCalc[REMAIN_INDEX];
-		tempCalc3.push(old_result, ((-1)*old_divid), old_divis);
+			//Using another tempCalc array,
+			//tempCalc3 will represent Result - old_divisor x dividend
+			old_result  = tempCalc[RESULT_INDEX];
+			old_divid   = tempCalc[DIVID_INDEX];
+			old_divis = tempCalc[DIVIS_INDEX];
+			old_remain  = tempCalc[REMAIN_INDEX];
+			tempCalc3.push(old_result, ((-1)*old_divid), old_divis);
 
-		//Find the index of the old remainder, and substitute there
-		replaceIndex = tempCalc2.indexOf(old_remain);
+			//Find the index of the old remainder, and substitute there
+			replaceIndex = tempCalc2.indexOf(old_remain);
 
-		tempCalc2[replaceIndex] = tempCalc3;
+			tempCalc2[replaceIndex] = tempCalc3;
 
-		//Now we need to do some combining
-		//NOTE: It's always the multiplication in the new equation that is getting combined 
-		//NOTE: This can probably be done better. Look into it later
-		//TODO: Remember negatives? I think I'm forgetting some
-		switch(replaceIndex){
-			//NOTE: The equations in the if/else are structured like so: 
-			//the index that is NOT the match is the one getting updated/
-			//so old index val = itself + the not matching value from the
-			//substituted equation, times the value before it's being
-			//multiplied by in tempCalc2
-			case 0:
-				if(old_divid === Math.abs(tempCalc2[2])){
-					tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+			//Now we need to do some combining
+			//NOTE: It's always the multiplication in the new equation that is getting combined 
+			//NOTE: This can probably be done better. Look into it later
+			//TODO: Remember negatives? I think I'm forgetting some
+			switch(replaceIndex){
+				//NOTE: The equations in the if/else are structured like so: 
+				//the index that is NOT the match is the one getting updated/
+				//so old index val = itself + the not matching value from the
+				//substituted equation, times the value before it's being
+				//multiplied by in tempCalc2
+				case 0:
+					if(old_divid === Math.abs(tempCalc2[2])){
+						tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+						
+					}
 					
-				}
-				
-				else if(old_divid === Math.abs(tempCalc2[3])){
-					tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+					else if(old_divid === Math.abs(tempCalc2[3])){
+						tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+						
+					}
+
+					else if(old_divis === Math.abs(tempCalc2[2])){
+						tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
+					}
 					
-				}
+					//i.e. old_divis === tempCalc2[3]
+					else{
+						tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
+					}
+			
+					break;
 
-				else if(old_divis === Math.abs(tempCalc2[2])){
-					tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
-				}
-				
-				//i.e. old_divis === tempCalc2[3]
-				else{
-					tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
-				}
-		
-				break;
-
-			case 1:
-				if(old_divid === Math.abs(tempCalc2[2])){
-					tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+				case 1:
+					if(old_divid === Math.abs(tempCalc2[2])){
+						tempCalc2[3] = tempCalc2[1] + tempCalc3[2] * tempCalc2[1];
+						
+					}
 					
-				}
-				
-				else if(old_divid === Math.abs(tempCalc2[3])){
-					tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+					else if(old_divid === Math.abs(tempCalc2[3])){
+						tempCalc2[2] = tempCalc2[0] + tempCalc3[2] * tempCalc2[1];
+						
+					}
+
+					else if(old_divis === Math.abs(tempCalc2[2])){
+						tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
+					}
 					
-				}
+					//i.e. old_divis === tempCalc2[3]
+					else{
+						tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
+					}
+					break;
 
-				else if(old_divis === Math.abs(tempCalc2[2])){
-					tempCalc2[3] = tempCalc2[1] + tempCalc3[1] * tempCalc2[1];
-				}
-				
-				//i.e. old_divis === tempCalc2[3]
-				else{
-					tempCalc2[2] = tempCalcs[0] + tempCalc3[1] * tempCalc2[1];
-				}
-				break;
-
-			case 2:
-				if(old_divid === Math.abs(tempCalc2[0])){
-					tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[3];
+				case 2:
+					if(old_divid === Math.abs(tempCalc2[0])){
+						tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[3];
+						
+					}
 					
-				}
-				
-				else if(old_divid === Math.abs(tempCalc2[1])){
-					tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[3];
+					else if(old_divid === Math.abs(tempCalc2[1])){
+						tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[3];
+						
+					}
+
+					else if(old_divis === Math.abs(tempCalc2[0])){
+						tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[3];
+					}
 					
-				}
+					//i.e. old_divis === tempCalc2[1]
+					else{
+						tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[3];
+					}
 
-				else if(old_divis === Math.abs(tempCalc2[0])){
-					tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[3];
-				}
-				
-				//i.e. old_divis === tempCalc2[1]
-				else{
-					tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[3];
-				}
+					break;
 
-				break;
+				case 3:
+					if(old_divid === Math.abs(tempCalc2[0])){
+						tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[2];
+					}
+					
+					else if(old_divid === Math.abs(tempCalc2[1])){
+						tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[2];
+					}
 
-			case 3:
-				if(old_divid === Math.abs(tempCalc2[0])){
-					tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[2];
-				}
-				
-				else if(old_divid === Math.abs(tempCalc2[1])){
-					tempCalc2[0] = tempCalc2[0] + tempCalc3[2] * tempCalc2[2];
-				}
+					else if(old_divis === Math.abs(tempCalc2[0])){
+						tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[2];
+					}
+					
+					//i.e. old_divis === tempCalc2[1]
+					else{
+						tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[2];
+					}
 
-				else if(old_divis === Math.abs(tempCalc2[0])){
-					tempCalc2[1] = tempCalc2[1] + tempCalc3[1] * tempCalc2[2];
-				}
-				
-				//i.e. old_divis === tempCalc2[1]
-				else{
-					tempCalc2[0] = tempCalcs[0] + tempCalc3[1] * tempCalc2[2];
-				}
-
-				break;
+					break;
+			}
+			//tempCalc3 is structured such that it's result - divisor x dividend,
+			//and the multiplication just got absorbed in the linear combination,
+			//So the replaceIndex can just be reset to the result part of temp3
+			tempCalc2[replaceIndex] = tempCalc3[0];
+			EEACalc.push(tempCalc2);
 		}
-		//tempCalc3 is structured such that it's result - divisor x dividend,
-		//and the multiplication just got absorbed in the linear combination,
-		//So the replaceIndex can just be reset to the result part of temp3
-		tempCalc2[replaceIndex] = tempCalc3[0];
-		EEACalc.push(tempCalc2);
-		//TODO: End while construct HERE
+ 		printCalculation(false, EEACalc);
  	}
 }
 
-//TODO: @param isGCD: a boolean for if we're printing the GCD or inverse calcs
+//@param isGCD: a boolean for if we're printing the GCD or inverse calcs
 //@param Calc: an array of arrays
-function printCalculation(Calc){
+function printCalculation(isGCD, Calc){
+	var calcStr;
+	var tempPrintCalc;
+	var newValue;
 	//TODO: when we're in multiplicative inverse check for 1s that we don't
-	//need to print
+	//need to print LOW PRIORITY
+	//TODO: Variable for document.getElementByID call?
 
-	//TODO: A check to see if we need to clear out the innerHTML element or not
-	//This can be done when we add the isGCD boolean
-	
-	for (var i = 0; i < Calc.length; i++) {
-		//The string representing the equation, to be printed out to the HTML page
-		var calcStr = "";
-		//Note: Calc is a one dimensional array
-		tempPrintCalc = Calc[i];
-		calcStr += tempPrintCalc[RESULT_INDEX].toString();
-		calcStr += " = ";
-		calcStr += tempPrintCalc[DIVIS_INDEX].toString();
-		calcStr += " x ";
-		calcStr += tempPrintCalc[DIVID_INDEX].toString();
-		calcStr += " + ";
-		calcStr += tempPrintCalc[REMAIN_INDEX].toString();
-		calcStr += "<br />";
-		document.getElementById("GCD calcs").innerHTML += calcStr;
+	if(isGCD){
+		//First, reset the innerHTML because if this is a GCD printing,
+		//we're doing an entirely new calculation
+		document.getElementById("GCD calcs").innerHTML = "";
+
+		//Now go and build the calcStr to be printed to the HTML page
+		//by adding each number in the GCD calc w/appropriate
+		//expressions
+		for (var i = 0; i < Calc.length; i++) {
+			calcStr = "";
+			tempPrintCalc = Calc[i];
+
+			calcStr += tempPrintCalc[RESULT_INDEX].toString();
+			calcStr += " = ";
+			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
+			calcStr += " x ";
+			calcStr += tempPrintCalc[DIVID_INDEX].toString();
+			calcStr += " + ";
+			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
+			calcStr += "<br />";
 		}
+		//Finally, print the calcStr out to the page
+		document.getElementById("GCD calcs").innerHTML += calcStr;
+	}
+	//We're printing the multiplicative inverse, much more complicated
+	else{
+		for (var i = 0; i < Calc.length; i++) {
+			// calcStr = "";
+			tempPrintCalc = Calc[i];
+
+			for(var j = 0; j <tempPrintCalc.length; j++){
+				newValue = tempPrintCalc[j];
+				
+				//Checking if an element is an array. Evidence online shows this
+				//is the fastest way to check
+				if(newValue.constructor === Array){
+					calcStr += "(";
+					calcStr += newValue[0].toString();
+					calcStr += " - ";
+					calcStr += newValue[1].toString();
+					calcStr += " x ";
+					calcStr += newValue[2].toString();
+					calcStr += ")";
+				}
+				else{
+					calcStr += newValue.toString();
+				}
+
+				switch(j){
+					case 0:
+						calcStr += " = ";
+						break;
+
+					case 1:
+						calcStr += " x ";
+						break;
+
+					case 2:
+						calcStr += " - ";
+						break;
+
+					case 3:
+						calcStr += " x ";
+						break;
+
+				}
+
+			}
+			//Don't forget to add a newline so it's not all squished together
+			calcStr+= "<br />";
+		}
+		document.getElementById("GCD calcs").innerHTML += calcStr;
+
+	}
+
+	
 }
 	
 
