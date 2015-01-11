@@ -23,7 +23,9 @@ function EEA(num1, num2){
 	var lastResult;
 	var result = num1;
 	var divisor = num2;
+	//NOTE: This will be a 2 dimensional array. An array of array equations
 	var gcdCalcs = new Array();
+	var remainders = new Array();	
 
 	//Vars for finding the multiplicative inverse
 	var EEACalc = new Array();
@@ -35,6 +37,10 @@ function EEA(num1, num2){
 	var old_divis;
 	var old_divid;
 	var old_remain;
+	var divid_eq_one;
+	var divis_eq_one;
+	var divis_in_remain;
+	var divid_in_remain;
 
 	//Going down in the Calcs to find the GCD
 	do{
@@ -55,6 +61,7 @@ function EEA(num1, num2){
 		// lastResult = result; No longer needed I think
 		result = divisor;
 		divisor = remainder;
+		remainders.push(remainder);
 	}while(remainder > 1);
 	
 	//If the remainder is zero, num2 does not have a multiplicative inverse
@@ -70,7 +77,12 @@ function EEA(num1, num2){
 	//Our final goal is to have EEACalc[1] = [factor1, num1, factor2, num2]
 	//Factor2 will be our multiplicative inverse
 	else{
-		//First, print the gcd results
+		//First, reset the last remainder, 1, to num2
+		//since we DON'T want to combine on 1s,
+		//but our last equation will combine on num2
+		remainders[remainders.length-1] = num2;
+
+		//Second, print the gcd results
 		printCalculation(true, gcdCalcs);
 
 		//TODO: better array variable names
@@ -116,7 +128,12 @@ function EEA(num1, num2){
 			//Now we need to do some combining
 			//NOTE: It's always the multiplication in the new equation that is getting combined 
 			//NOTE: This can probably be done better. Look into it later
-			//TODO: Remember negatives? I think I'm forgetting some
+			//TODO: I think there's a better way to organize this...
+			divid_in_remain = (remainders.indexOf(old_divid) > -1);
+			divis_in_remain = (remainders.indexOf(old_divis) > -1);
+			divid_eq_one = (old_divid === 1);
+			divis_eq_one = (old_divis === 1)
+
 			switch(replaceIndex){
 				//NOTE: The equations in the if/else are structured like so: 
 				//the index that is NOT the match is the one getting updated/
@@ -124,7 +141,7 @@ function EEA(num1, num2){
 				//substituted equation, times the value before it's being
 				//multiplied by in tempCalc2
 				case 1:
-					if(old_divid !== 1){
+					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[3])){
 							tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[2];
 							break;
@@ -135,7 +152,7 @@ function EEA(num1, num2){
 							break;
 						}
 					}
-					if(old_divis !== 1){
+					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[3])){
 							tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[2];
 							break;
@@ -150,7 +167,7 @@ function EEA(num1, num2){
 					break;
 
 				case 2:
-					if(old_divid !== 1){
+					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[3])){
 							tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[1];
 							break;
@@ -161,7 +178,7 @@ function EEA(num1, num2){
 							break;
 						}
 					}
-					if(old_divis !== 1){
+					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[3])){
 							tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[1];
 							break;
@@ -176,7 +193,7 @@ function EEA(num1, num2){
 					break;
 
 				case 3:
-					if(old_divid !== 1){
+					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[1])){
 							tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[4];
 							break;
@@ -187,7 +204,7 @@ function EEA(num1, num2){
 							break;
 						}
 					}
-					if(old_divis !== 1){
+					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[1])){
 							tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[4];
 							break;
@@ -202,7 +219,7 @@ function EEA(num1, num2){
 					break;
 					
 				case 4:
-					if(old_divid !== 1){
+					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[1])){
 							tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[3];
 							break;
@@ -213,7 +230,7 @@ function EEA(num1, num2){
 							break;
 						}
 					}
-					if(old_divis !== 1){
+					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[1])){
 							tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[3];
 							break;
