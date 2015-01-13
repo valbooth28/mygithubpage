@@ -68,8 +68,11 @@ function EEA(num1, num2){
 	//in Z(num1)
 	if(remainder === 0){
 		//TODO: Have the alert mention the actual GCD? Low priority
-		alert(num1.toString() + " and " + num2.toString() + " do not have a GCD of 1.\n" +
-			"Please enter two numbers with a GCD of 1.");
+		// alert(num1.toString() + " and " + num2.toString() + " do not have a GCD of 1.\n" +
+		// 	"Please enter two numbers with a GCD of 1.");
+		
+		//For testing purposes
+		return -1;
 	}
 
 	//Going back up in the Calcs to find the multiplicative inverse
@@ -83,7 +86,8 @@ function EEA(num1, num2){
 		remainders[remainders.length-1] = num2;
 
 		//Second, print the gcd results
-		printCalculation(true, gcdCalcs);
+		//TODO: Restore after testing
+		// printCalculation(true, gcdCalcs);
 
 		//TODO: better array variable names
 
@@ -112,15 +116,20 @@ function EEA(num1, num2){
 
 			//Using another tempCalc array,
 			//tempCalc3 will represent Result - old_divisor x dividend
-			old_result  = tempCalc[RESULT_INDEX];
-			old_divid   = tempCalc[DIVID_INDEX];
-			old_divis = tempCalc[DIVIS_INDEX];
-			old_remain  = tempCalc[REMAIN_INDEX];
+			old_result = tempCalc[RESULT_INDEX];
+			old_divid  = tempCalc[DIVID_INDEX];
+			old_divis  = tempCalc[DIVIS_INDEX];
+			old_remain = tempCalc[REMAIN_INDEX];
 			tempCalc3.push(old_result, ((-1)*old_divid), old_divis);
 
 			//Find the index of the old remainder, and substitute there
 			//TODO: absolute value/negative check
 			replaceIndex = tempCalc2.indexOf(old_remain);
+
+			//Remove old_remainder from the remainders array
+			//so the algorithm doesn't try to combine it twice
+			var removeIndex = remainders.indexOf(old_remain);
+			remainders.splice(removeIndex, 1);
 
 			tempCalc2[replaceIndex] = tempCalc3;
 			EEACalc.push(tempCalc2.slice());
@@ -143,24 +152,44 @@ function EEA(num1, num2){
 				case 1:
 					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[3])){
-							tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[2];
+							if(tempCalc3[1] < 0){
+								tempCalc2[4] = tempCalc2[4] + -1*tempCalc3[2] * tempCalc2[2];
+							}
+							else{
+								tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[2];
+							}
 							break;
 						}
 						
 						else if(old_divid === Math.abs(tempCalc2[4])){
-							tempCalc2[3] = tempCalc2[3] + tempCalc3[2] * tempCalc2[2];
+							if(tempCalc3[1] < 0){
+								tempCalc2[3] = tempCalc2[3] + -1*tempCalc3[2] * tempCalc2[2];
+							}
+							else{
+								tempCalc2[3] = tempCalc2[3] + tempCalc3[2] * tempCalc2[2];
+							}
 							break;
 						}
 					}
 					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[3])){
-							tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[2];
+							if(tempCalc3[2] < 0){
+								tempCalc2[4] = tempCalc2[4] + -1*tempCalc3[1] * tempCalc2[2];
+							}
+							else{
+								tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[2];
+							}
 							break;
 						}
 						
 						//i.e. old_divis === tempCalc2[4]
 						else{
-							tempCalc2[3] = tempCalc2[3] + tempCalc3[1] * tempCalc2[2];
+							if(tempCalc3[2] < 0){
+								tempCalc2[3] = tempCalc2[3] + -1*tempCalc3[1] * tempCalc2[2];
+							}
+							else{
+								tempCalc2[3] = tempCalc2[3] + tempCalc3[1] * tempCalc2[2];
+							}
 							break;
 						}
 					}	
@@ -169,24 +198,44 @@ function EEA(num1, num2){
 				case 2:
 					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[3])){
-							tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[1];
+							if(tempCalc3[1] < 0){
+								tempCalc2[4] = tempCalc2[4] + -1*tempCalc3[2] * tempCalc2[1];
+							}
+							else{
+								tempCalc2[4] = tempCalc2[4] + tempCalc3[2] * tempCalc2[1];
+							}
 							break;
 						}
 						
 						else if(old_divid === Math.abs(tempCalc2[4])){
-							tempCalc2[3] = tempCalc2[3] + tempCalc3[2] * tempCalc2[1];
+							if(tempCalc3[1] < 0){
+								tempCalc2[3] = tempCalc2[3] + -1*tempCalc3[2] * tempCalc2[1];
+							}
+							else{
+								tempCalc2[3] = tempCalc2[3] + tempCalc3[2] * tempCalc2[1];
+							}
 							break;
 						}
 					}
 					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[3])){
-							tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[1];
+							if(tempCalc3[2] < 0){
+								tempCalc2[4] = tempCalc2[4] + -1*tempCalc3[1] * tempCalc2[1];
+							}
+							else{
+								tempCalc2[4] = tempCalc2[4] + tempCalc3[1] * tempCalc2[1];
+							}
 							break;
 						}
 						
 						//i.e. old_divis === tempCalc2[4]
 						else{
-							tempCalc2[3] = tempCalcs[3] + tempCalc3[1] * tempCalc2[1];
+							if(tempCalc3[2] < 0){
+								tempCalc2[3] = tempCalcs[3] + -1*tempCalc3[1] * tempCalc2[1];
+							}
+							else{
+								tempCalc2[3] = tempCalcs[3] + tempCalc3[1] * tempCalc2[1];
+							}
 							break;
 						}
 					}
@@ -195,24 +244,44 @@ function EEA(num1, num2){
 				case 3:
 					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[1])){
-							tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[4];
+							if(tempCalc3[1] < 0){
+								tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[4];
+							}
+							else{
+								tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[4];
+							}
 							break;
 						}
 						
 						else if(old_divid === Math.abs(tempCalc2[2])){
-							tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[4];
+							if(tempCalc3[2] < 0){
+								tempCalc2[1] = tempCalc2[1] + -1*tempCalc3[2] * tempCalc2[4];
+							}
+							else{
+								tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[4];
+							}
 							break;
 						}
 					}
 					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[1])){
-							tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[4];
+							if(tempCalc3[2] < 0){
+								tempCalc2[2] = tempCalc2[2] + -1*tempCalc3[1] * tempCalc2[4];
+							}
+							else{
+								tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[4];
+							}
 							break;
 						}
 					
 						//i.e. old_divis === tempCalc2[2]
 						else{
-							tempCalc2[1] = tempCalcs[1] + tempCalc3[1] * tempCalc2[4];
+							if(tempCalc3[2] < 0){
+								tempCalc2[1] = tempCalcs[1] + -1*tempCalc3[1] * tempCalc2[4];
+							}
+							else{
+								tempCalc2[1] = tempCalcs[1] + tempCalc3[1] * tempCalc2[4];
+							}
 							break;
 						}
 					}
@@ -221,24 +290,44 @@ function EEA(num1, num2){
 				case 4:
 					if(!divid_eq_one && divid_in_remain){
 						if(old_divid === Math.abs(tempCalc2[1])){
-							tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[3];
+							if(tempCalc3[1] < 0){
+								tempCalc2[2] = tempCalc2[2] + (-1)*tempCalc3[2] * tempCalc2[3];
+							}
+							else{
+								tempCalc2[2] = tempCalc2[2] + tempCalc3[2] * tempCalc2[3];
+							}
 							break;
 						}
 						
 						else if(old_divid === Math.abs(tempCalc2[2])){
-							tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[3];
+							if(tempCalc3[1] < 0){
+								tempCalc2[1] = tempCalc2[1] + -1*tempCalc3[2] * tempCalc2[3];
+							}
+							else{
+								tempCalc2[1] = tempCalc2[1] + tempCalc3[2] * tempCalc2[3];
+							}
 							break;
 						}
 					}
 					if(!divis_eq_one && divis_in_remain){
 						if(old_divis === Math.abs(tempCalc2[1])){
-							tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[3];
+							if(tempCalc3[2] < 0){
+								tempCalc2[2] = tempCalc2[2] + -1*tempCalc3[1] * tempCalc2[3];
+							}
+							else{
+								tempCalc2[2] = tempCalc2[2] + tempCalc3[1] * tempCalc2[3];
+							}
 							break;
 						}
 					
 						//i.e. old_divis === tempCalc2[2]
 						else{
-							tempCalc2[1] = tempCalcs[1] + tempCalc3[1] * tempCalc2[3];
+							if(tempCalc3[2] < 0){
+								tempCalc2[1] = tempCalcs[1] + -1*tempCalc3[1] * tempCalc2[3];
+							}
+							else{
+								tempCalc2[1] = tempCalcs[1] + tempCalc3[1] * tempCalc2[3];
+							}
 							break;
 						}
 			
@@ -252,7 +341,8 @@ function EEA(num1, num2){
 			tempCalc2[replaceIndex] = tempCalc3[0];
 			EEACalc.push(tempCalc2.slice());
 		}
- 		printCalculation(false, EEACalc);
+		//TODO: Restore after testing
+ 		// printCalculation(false, EEACalc);
 
  		//Now specifically identify the multiplicative inverse,
  		//which will be the number multiplied times our original num2
@@ -274,9 +364,20 @@ function EEA(num1, num2){
  				break;
  			}
  		}
- 		var finalStr = "<br />" + "The multiplicative inverse is: " + inverse.toString();
- 		document.getElementById("GCD calcs").innerHTML += finalStr;
 
+ 		//TODO: Better documentation
+ 		//If the inverse is negative it's not WRONG, it's just that
+ 		//often times its positive correspondent is more useful
+ 		if(inverse < 0){
+ 			//Inverse is currently negative so inverse = num1 - abs(inverse)
+ 			inverse = num1 + inverse;
+ 		}
+ 		var finalStr = "<br />" + "The multiplicative inverse is: " + inverse.toString();
+ 		//TODO: Restore after testing
+ 		// document.getElementById("GCD calcs").innerHTML += finalStr;
+
+ 		//For testing purposes:
+ 		return inverse;
  	}
 }
 
