@@ -47,12 +47,9 @@ function EEA(num1, num2){
 		remainder = result % divisor;
 		dividend = Math.floor(result/divisor);
 
-		//TODO: Change documentation
-		//NOTE: gcdCalcs is structured like so:
-		//result	: [divisor, dividend, remainder]
-		//divisor	: [remainder, newDividend, newRemainder]
-		//and so on and so forth
-		//Trying to change gcdCalcs to an array of arrays
+		//NOTE: gcdCalcs is an array of equation arrays.
+		//Each equation array looks like:
+		//result = dividend x divisor + remainder
 		newCalc = new Array();
 		newCalc.push(result, dividend, divisor, remainder);
 		gcdCalcs.push(newCalc); 
@@ -67,12 +64,34 @@ function EEA(num1, num2){
 	//If the remainder is zero, num2 does not have a multiplicative inverse
 	//in Z(num1)
 	if(remainder === 0){
-		//TODO: Have the alert mention the actual GCD? Low priority
-		// alert(num1.toString() + " and " + num2.toString() + " do not have a GCD of 1.\n" +
-		// 	"Please enter two numbers with a GCD of 1.");
+		remainArrLen = remainders.length;
+		var GCD;
+		
+		if(remainArrLen > 1){
+			//Finding the actual GCD, which should be the penultimate remainder
+			//since the last remainder is 0
+			GCD = remainders[remainArrLen - 2];
+		}
+		else{
+			//the only remainder in remainders is 0, so
+			//we have to check the only calc in gcdCalcs
+			var calc = gcdCalcs[0];
+			var gcdDivid = calc[DIVID_INDEX]
+			var gcdDivis = calc[DIVIS_INDEX];
+			//The smaller of the two numbers will be the GCD
+			if(gcdDivis < gcdDivid){
+				GCD = gcdDivis;
+			}
+			else{
+				GCD = gcdDivid;
+			}
+		}
+		
+		alert(num1.toString() + " and " + num2.toString() + " have a GCD of " +
+			GCD.toString() + "/nPlease enter two numbers with a GCD of 1.");
 		
 		//For testing purposes
-		return -1;
+		// return GCD;
 	}
 
 	//Going back up in the Calcs to find the multiplicative inverse
@@ -86,8 +105,7 @@ function EEA(num1, num2){
 		remainders[remainders.length-1] = num2;
 
 		//Second, print the gcd results
-		//TODO: Restore after testing
-		// printCalculation(true, gcdCalcs);
+		printCalculation(true, gcdCalcs);
 
 		//TODO: better array variable names
 
@@ -341,8 +359,8 @@ function EEA(num1, num2){
 			tempCalc2[replaceIndex] = tempCalc3[0];
 			EEACalc.push(tempCalc2.slice());
 		}
-		//TODO: Restore after testing
- 		// printCalculation(false, EEACalc);
+		
+ 		printCalculation(false, EEACalc);
 
  		//Now specifically identify the multiplicative inverse,
  		//which will be the number multiplied times our original num2
@@ -373,11 +391,11 @@ function EEA(num1, num2){
  			inverse = num1 + inverse;
  		}
  		var finalStr = "<br />" + "The multiplicative inverse is: " + inverse.toString();
- 		//TODO: Restore after testing
- 		// document.getElementById("GCD calcs").innerHTML += finalStr;
+ 		
+ 		document.getElementById("GCD calcs").innerHTML += finalStr;
 
  		//For testing purposes:
- 		return inverse;
+ 		//return inverse;
  	}
 }
 

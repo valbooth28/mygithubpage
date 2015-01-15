@@ -7,8 +7,9 @@
 
 
 function readInput(){
-	//The greatest number that my EEA can do. Currently 10k because why not?
-	var MAX_NUM = 10000;
+	//The upper limit for the EEA calculation, chosen because 100 million was
+	//occasionally having some accuracy issues, 50 million's a good number 
+	var MAX_NUM = 50000000;
 	
 	//Error Strings
 	//TODO: Make these <= 80 length?
@@ -24,6 +25,7 @@ function readInput(){
 	num1 = document.getElementById('num1Input').value;
 	num2 = document.getElementById('num2Input').value;
 	
+	//TODO: This can be combined a bit
 	//Check that they are valid integers then convert them
 	if(isPositiveInteger(num1)){
 		//Clarifying base ten just in case
@@ -45,27 +47,33 @@ function readInput(){
 		return;
 	}
 
+
 	//Double check that they are within range
 	if(num1 > MAX_NUM){
 		alert("Please enter a number between 1 and " + MAX_NUM.toString());
+		return;
 	}
 
 	else if(num2 > MAX_NUM){
 		alert("Please enter a number between 1 and " + MAX_NUM.toString());
+		return;
 	}
 
 	//Check for zeroes or ones
 	if((num1 === 0) || (num2 === 0)){
 		alert(zeroErrStr);
+		return;
 	}
 	else if((num1 === 1) || (num2 === 1)){
 		alert(oneErrStr);
+		return;
 	}
 
 	//Check that the numbers are not the same, a modular integer ring of n
 	//contains numbers of 1,2, ... n-1
 	if(num1 === num2){
 		alert(sameNumErrStr);
+		return;
 	}
 
 	//If num2 < num1, swap the numbers, because num1 should be a number
