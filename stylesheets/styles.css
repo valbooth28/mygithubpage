@@ -595,6 +595,17 @@ a small {
   display: block;
 }
 
+a.rit {
+  color: #F36E21;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a.rit:hover {
+  color: #f69963;
+}
+
+
 a.project{
   font-size: 16px;
   color: #90A954;
