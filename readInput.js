@@ -94,7 +94,13 @@ function readInput(){
 //NOTE: Inspiration for this function taken from http://bit.ly/13L47WF,
 //a stack overflow question
 function isPositiveInteger(n) {
-	//Is it a number? Is it finite? Does it have a decimal or negative sign?
-	return !isNaN(parseFloat(n)) && isFinite(n) && (n.indexOf(".") === -1) && (n.indexOf("-") === -1);
+	//Is it a number? Is it finite? 
+	var bool = !isNaN(parseFloat(n)) && isFinite(n);
+	//Does it have a decimal or negative sign?
+	bool = bool && (n.indexOf(".") === -1) && (n.indexOf("-") === -1);
+	//Does it have an e in it? We're going to say e is not proper notation here
+	//Thanks to Adam @aem1269 for the insight
+	bool = bool && (n.indexOf("e") === -1);
+	return bool;
 }
 
