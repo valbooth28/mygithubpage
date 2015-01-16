@@ -595,8 +595,23 @@ a small {
   display: block;
 }
 
+a.project{
+  font-size: 16px;
+  color: #90A954;
+  margin-top: +0.3em;
+  display: block;
+}
+
+a.project:hover {
+  color: #bccb98;
+}
+
 ul {
   list-style-image: url("../images/bullet.png");
+}
+
+ul li { 
+  padding: 5px 0px; 
 }
 
 strong {
@@ -680,11 +695,20 @@ td {
   border-bottom: 1px solid #434343;
 }
 
+/* Gradient color1 - color2 - color1 */
+    
+
 hr {
   border: 0;
   outline: none;
-  height: 3px;
-  background: transparent url("../images/hr.gif") center center repeat-x;
+  height: 2px;
+  /*color: #e8e8e8;*/
+  /*background: transparent url("../images/hr.gif") center center repeat-x;*/
+  background: #e8e8e8;
+  background-image: -webkit-linear-gradient(left, #252525, #e8e8e8, #252525); 
+  background-image:    -moz-linear-gradient(left, #252525, #e8e8e8, #252525); 
+  background-image:     -ms-linear-gradient(left, #252525, #e8e8e8, #252525); 
+  background-image:      -o-linear-gradient(left, #252525, #e8e8e8, #252525); 
   margin: 0 0 20px;
 }
 

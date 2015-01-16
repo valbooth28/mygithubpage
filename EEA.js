@@ -88,7 +88,7 @@ function EEA(num1, num2){
 		}
 		
 		alert(num1.toString() + " and " + num2.toString() + " have a GCD of " +
-			GCD.toString() + "/nPlease enter two numbers with a GCD of 1.");
+			GCD.toString() + ".\nPlease enter two numbers with a GCD of 1.");
 		
 		//For testing purposes
 		// return GCD;
