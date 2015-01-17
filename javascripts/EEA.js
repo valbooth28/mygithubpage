@@ -383,16 +383,18 @@ function EEA(num1, num2){
  			}
  		}
 
+ 		var finalStr = "<br />" + "The multiplicative inverse is: ";
  		//TODO: Better documentation
  		//If the inverse is negative it's not WRONG, it's just that
  		//often times its positive correspondent is more useful
  		if(inverse < 0){
+ 			finalStr += inverse.toString() + " = ";
  			//Inverse is currently negative so inverse = num1 - abs(inverse)
  			inverse = num1 + inverse;
  		}
- 		var finalStr = "<br />" + "The multiplicative inverse is: " + inverse.toString();
- 		
- 		document.getElementById("GCD calcs").innerHTML += finalStr;
+ 		finalStr += '<span class="result">' + inverse.toString() + '</span>';
+ 	
+ 		document.getElementById("final inverse").innerHTML = finalStr;
 
  		//For testing purposes:
  		//return inverse;
@@ -402,6 +404,9 @@ function EEA(num1, num2){
 //@param isGCD: a boolean for if we're printing the GCD or inverse calcs
 //@param Calc: an array of arrays
 function printCalculation(isGCD, Calc){
+	//Defining this str specifically because I can't decide what I want it to be
+	var MULT_STR = " • ";
+
 	var calcStr = "";
 	var tempPrintCalc;
 	var newValue;
@@ -424,9 +429,9 @@ function printCalculation(isGCD, Calc){
 
 			calcStr += tempPrintCalc[RESULT_INDEX].toString();
 			calcStr += " = ";
-			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
-			calcStr += " x ";
 			calcStr += tempPrintCalc[DIVID_INDEX].toString();
+			calcStr += MULT_STR;
+			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
 			calcStr += " + ";
 			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
 			calcStr += "<br />";
@@ -451,13 +456,16 @@ function printCalculation(isGCD, Calc){
 					calcStr += newValue[0].toString();
 					//TODO: Better fix later
 					//calcStr += " - ";
-					calcStr += newValue[1].toString();
-					calcStr += " x ";
+					calcStr += " - "+ Math.abs(newValue[1]).toString();
+					calcStr += MULT_STR;
 					calcStr += newValue[2].toString();
 					calcStr += ")";
 				}
 				else{
-					calcStr += newValue.toString();
+					if(newValue < 0){
+						calcStr += " - ";
+					}
+					calcStr += Math.abs(newValue).toString()
 				}
 
 				switch(j){
@@ -466,7 +474,7 @@ function printCalculation(isGCD, Calc){
 						break;
 
 					case 1:
-						calcStr += " x ";
+						calcStr += MULT_STR;
 						break;
 
 					case 2:
@@ -475,7 +483,7 @@ function printCalculation(isGCD, Calc){
 						break;
 
 					case 3:
-						calcStr += " x ";
+						calcStr += MULT_STR;
 						break;
 
 				}

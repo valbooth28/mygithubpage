@@ -416,9 +416,9 @@ textarea {
   /* 1 */
   margin: 0;
   /* 2 */
-  vertical-align: baseline;
+  vertical-align: middle;
   /* 3 */
-  *vertical-align: middle;
+  *vertical-align: baseline;
   /* 3 */
 }
 
@@ -620,7 +620,7 @@ a.project:hover {
 
 .gcdCalc{
   id: GCD Calcs;
-  
+
 }
 ul {
   list-style-image: url("../images/bullet.png");
@@ -828,16 +828,33 @@ dt {
   font-size: 11px;
 }
 
+.result {
+  color: #E80000; 
+  /*font-family:arial; */
+  font-size: 20px;
+}
+
+#calc p {
+  color: #d7cfbe;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: normal;
+  font-size: 17px;
+  text-align: center;
+}
+
+
 section {
   max-width: 650px;
   /*padding: 30px 0px 50px 0px;*/
   margin: 20px 0;
   margin-top: 70px;
 }
+
+
 section #title {
   border: 0;
   outline: none;
-  margin: 0 0 50px 0;
+  margin: 0 0 10px 0;
   padding: 0 0 5px 0;
 }
 section #title h1 {
