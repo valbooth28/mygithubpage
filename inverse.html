@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Modular Multiplicative Inverse</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <script src="javascripts/EEA.js"></script>
+    <script src="javascripts/readInput.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+  
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Modular Multiplicative Inverse</h1>
+          <p></p>
+          <hr class = "inverse">
+          <h3>About:</h3>
+          <p> Just like a regular multiplicative inverse, where <strong>b</strong> is the inverse of <strong>a</strong> if<strong> a * b = 1</strong>, <strong>b</strong> is a <a href="http://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> of <strong>a</strong> mod <strong>c</strong> if <strong>a*b = 1</strong> mod <strong>c</strong>. Below the modular multiplicative inverse is found by using the Extended Euclidean Algorithm to first confirm that the greatest common divisor of <strong>a</strong> and <strong>c</strong> is 1, then doing linear combinations to get the equation <strong> 1 = a x b + c x k</strong>, where <strong>b</strong> is the inverse of <strong>a</strong>, and <strong>k</strong> is a constant.</p>
+          <h3>Calculations:</h3>
+          <p>Please enter two positive integers <strong>a</strong> and <strong>c</strong> less than 50,000,000 and without commas into the two respective boxes below.</p>
+          <p>
+          <input type="text" name="num1Input" value="" id="num1Input" size="15" style="font-size:12px; padding-left:2px;">
+
+          <input type="text" name="num2Input" value="" id="num2Input" size="15" style="font-size:12px; padding-left:2px;">
+          <button type="button" onclick="readInput()">Find the Inverse</button>
+          </p>
+
+          <p id="GCD calcs"></p>
