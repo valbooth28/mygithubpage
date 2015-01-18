@@ -8,11 +8,45 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
     <script src="javascripts/EEA.js"></script>
-    <script src="javascripts/readInput.js"></script>
+    <script src="javascripts/pageUtils.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        prime1 = 49999759; 
+        prime2 = 49999883; 
+        prime3 = 49999991;
+        boxID = "num1Input";
+        
+        //Set code to run when the link is clicked
+        // by assigning a function to "onclick"
+        primeLink1.onclick = function() {
+          //Call writeTextBox with the selected value
+          writeTextBox(boxID, prime1);
+          return false;
+        }  
+  
+        //Set code to run when the link is clicked
+        // by assigning a function to "onclick"
+        primeLink2.onclick = function() {
+          //Call writeTextBox with the selected value
+          writeTextBox(boxID, prime2);
+          return false;
+        }  
+  
+        //Set code to run when the link is clicked
+        // by assigning a function to "onclick"
+        primeLink3.onclick = function() {
+          //Call writeTextBox with the selected value
+          writeTextBox(boxID, prime3);
+          return false;
+        }  
+      
+      }
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -29,7 +63,7 @@
           <h3>About:</h3>
           <p> Just like a regular multiplicative inverse, where <strong>b</strong> is the inverse of <strong>a</strong> if<strong> a • b = 1</strong>, <strong>b</strong> is a <a href="http://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> of <strong> a mod c</strong> if <strong>a • b = 1 mod c</strong>. Below the modular multiplicative inverse is found by using the Extended Euclidean Algorithm to first confirm that the greatest common divisor of <strong>a</strong> and <strong>c</strong> is 1, then doing linear combinations to get the equation <strong> 1 = a • b + c • k</strong>, where <strong>b</strong> is the inverse of <strong>a</strong>, and <strong>k</strong> is a constant.</p>
           <h3>Calculations:</h3>
-          <p>Please enter two positive integers <strong>a</strong> and <strong>c</strong> less than 50,000,000 and without commas into the two respective boxes below. <!-- <i>Note:</i> This algorithm works particularly well with prime <strong>c</strong> values, because every number between 1 and <strong>c</strong> will have a multiplicative inverse. Some large prime values within range are: --> </p>
+          <p>Please enter two positive integers <strong>c</strong> and <strong>a</strong> less than 50,000,000 and without commas into the two respective boxes below. <i>Note:</i> This algorithm works particularly well with prime <strong>c</strong> values, because every number between 1 and <strong>c</strong> will have a multiplicative inverse. Some large prime values within range are: <a id = "primeLink1" href ="/">49999759</a>, <a id = "primeLink2" href ="javascript: void(0)">49999883</a> and <a id = "primeLink3" href ="javascript: void(0)">49999991</a>.  </p>
           <p>
           <input type="text" name="num1Input" value="" id="num1Input" size="15" style="font-size:12px; padding-left:2px;">
 
@@ -37,7 +71,6 @@
           <button type="button" onclick="readInput()">Find the Inverse</button>
           </p>
           </div>
-          <!-- </section> -->
           
           <div id="calc">
           <p id="GCD calcs" class= "calc"></p>

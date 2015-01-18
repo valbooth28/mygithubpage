@@ -12,8 +12,8 @@ var DIVIS_INDEX = 2;
 var REMAIN_INDEX = 3;
 
 /**
-	@param num1 an integer <= 10,000 that is greater than num2
-	@param num2 an integer <= 10,000
+	@param num1: an integer <= MAX_LIMIT that is greater than num2
+	@param num2: an integer <= MAX_LIMIT
 */
 function EEA(num1, num2){
 	//Vars for finding the GCD
@@ -401,103 +401,7 @@ function EEA(num1, num2){
  	}
 }
 
-//@param isGCD: a boolean for if we're printing the GCD or inverse calcs
-//@param Calc: an array of arrays
-function printCalculation(isGCD, Calc){
-	//Defining this str specifically because I can't decide what I want it to be
-	var MULT_STR = " • ";
 
-	var calcStr = "";
-	var tempPrintCalc;
-	var newValue;
-	//TODO: when we're in multiplicative inverse check for 1s that we don't
-	//need to print LOW PRIORITY
-	//TODO: Variable for document.getElementByID call?
-
-	if(isGCD){
-		//First, reset the innerHTML because if this is a GCD printing,
-		//we're doing an entirely new calculation
-		document.getElementById("GCD calcs").innerHTML = "";
-
-
-		//Now go and build the calcStr to be printed to the HTML page
-		//by adding each number in the GCD calc w/appropriate
-		//expressions
-		for (var i = 0; i < Calc.length; i++) {
-			
-			tempPrintCalc = Calc[i];
-
-			calcStr += tempPrintCalc[RESULT_INDEX].toString();
-			calcStr += " = ";
-			calcStr += tempPrintCalc[DIVID_INDEX].toString();
-			calcStr += MULT_STR;
-			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
-			calcStr += " + ";
-			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
-			calcStr += "<br />";
-		}
-		//Finally, print the calcStr out to the page
-		document.getElementById("GCD calcs").innerHTML += calcStr;
-	}
-	//We're printing the multiplicative inverse, much more complicated
-	else{
-		calcStr += "<br />";
-		for (var i = 0; i < Calc.length; i++) {
-			// calcStr = "";
-			tempPrintCalc = Calc[i];
-
-			for(var j = 0; j <tempPrintCalc.length; j++){
-				newValue = tempPrintCalc[j];
-				
-				//Checking if an element is an array. Evidence online shows this
-				//is the fastest way to check
-				if(newValue.constructor === Array){
-					calcStr += "(";
-					calcStr += newValue[0].toString();
-					//TODO: Better fix later
-					//calcStr += " - ";
-					calcStr += " - "+ Math.abs(newValue[1]).toString();
-					calcStr += MULT_STR;
-					calcStr += newValue[2].toString();
-					calcStr += ")";
-				}
-				else{
-					if(newValue < 0){
-						calcStr += " - ";
-					}
-					calcStr += Math.abs(newValue).toString()
-				}
-
-				switch(j){
-					case 0:
-						calcStr += " = ";
-						break;
-
-					case 1:
-						calcStr += MULT_STR;
-						break;
-
-					case 2:
-						//TODO: Better fix later
-						//calcStr += " - ";
-						break;
-
-					case 3:
-						calcStr += MULT_STR;
-						break;
-
-				}
-
-			}
-			//Don't forget to add a newline so it's not all squished together
-			calcStr+= "<br />";
-		}
-		document.getElementById("GCD calcs").innerHTML += calcStr;
-
-	}
-
-	
-}
 	
 
 

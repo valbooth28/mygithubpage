@@ -33,7 +33,7 @@ function super_time_test(){
 
 	
 
-	var allRanges = [ranges1, ranges2, ranges3,];
+	var allRanges = [ranges1, ranges2, ranges3];
 	
 	for(var i = 0; i < allRanges.length; i++){
 		time_test(allRanges[i]);
