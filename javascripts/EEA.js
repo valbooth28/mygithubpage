@@ -2,7 +2,7 @@
  * File: EEA.js
  * Author: Val Booth <vxb4825@rit.edu>
  * Purpose: Does all of the math for the Extended Euclidean Algorithm. 
-  **/
+ **/
 
 
 //Indexing Constants, for my own sanity
@@ -79,7 +79,7 @@ function EEA(num1, num2){
 			var gcdDivid = calc[DIVID_INDEX]
 			var gcdDivis = calc[DIVIS_INDEX];
 			//The smaller of the two numbers will be the GCD
-			if(gcdDivis < gcdDivid){
+			if((gcdDivis < gcdDivid) || (gcdDivis === num2)){
 				GCD = gcdDivis;
 			}
 			else{
@@ -87,9 +87,12 @@ function EEA(num1, num2){
 			}
 		}
 		
-		alert(num1.toString() + " and " + num2.toString() + " have a GCD of " +
-			GCD.toString() + ".\nPlease enter two numbers with a GCD of 1.");
-		
+		var gcdStr = ERR_SPAN_STR;
+		gcdStr += num1.toString() + " and " + num2.toString() + " have a GCD of "; 
+		gcdStr += GCD.toString() + ".\n";
+		gcdStr += errorEnum.val[errorEnum.GCD_OF_ONE].str + '</span>';
+
+		document.getElementById("GCD calcs").innerHTML = gcdStr;
 		//For testing purposes
 		// return GCD;
 	}

@@ -620,8 +620,9 @@ a.project:hover {
 
 .gcdCalc{
   id: GCD Calcs;
-
 }
+
+
 ul {
   list-style-image: url("../images/bullet.png");
 }
@@ -833,6 +834,13 @@ dt {
   /*font-family:arial; */
   font-size: 20px;
 }
+
+.error{
+  color: #ffffff;
+  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
 
 #calc p {
   color: #d7cfbe;

@@ -5,6 +5,10 @@
  * TODO: Make a function that edits the innerHTML elements
   **/
 
+//NOTE: The upper limit for the EEA calculation, chosen because 100 million was
+//occasionally having some accuracy issues, 50 million's a good number
+MAX_NUM = 50000000;
+
 
 /* 
 * Helper function for readInput.
@@ -24,96 +28,110 @@ function isPositiveInteger(n) {
 }
 
 
+
+
 /*
 * Takes the input from the two num input boxes, checks that the input is
 * valid, and if it is valid calls the EEA algorithm, if not prints out
 * an error message.
 */
 function readInput(){
-	//The upper limit for the EEA calculation, chosen because 100 million was
-	//occasionally having some accuracy issues, 50 million's a good number 
-	var MAX_NUM = 50000000;
-	
-	//Error Strings
-	//TODO: Make these <= 80 length?
-	var notPosIntErrStr = "number you have entered is not a positive integer. Please enter a positive integer.";
-	var oneErrStr = "The multiplicative inverse of 1 is always 1.";
-	var zeroErrStr = "0 is not a valid number in a modular integer ring.";
-	var sameNumErrStr = "A modular integer ring of a number cannot contain itself. Please change one of the numbers.";
-	
 	var num1;
-	var num2; 
+	var num2;
+	
+	//Presetting to be no error
+	var errNo = errorEnum.NO_ERROR; 
+	//Clear out any past results
+	document.getElementById("final inverse").innerHTML = "";
 
 	//Grabs the input from the two text boxes
 	num1 = document.getElementById('num1Input').value;
 	num2 = document.getElementById('num2Input').value;
 	
-	//TODO: This can be combined a bit
-	//Check that they are valid integers then convert them
-	if(isPositiveInteger(num1)){
-		//Clarifying base ten just in case
+	//Checking if our first num is not a positive int
+	if(!isPositiveInteger(num1)){
+		errNo = errorEnum.NUM1_NOT_POS_INT;
+	}
+	//It is, keep going
+	else{
+		//Converting num1, clarifying base ten just in case
 		num1 = parseInt(num1,10);
+		
+		//Checking if our second num isn't a positive int
+		if(!isPositiveInteger(num2)){
+			errNo = errorEnum.NUM2_NOT_POS_INT;
+		}
+		//It is, keep going
+		else{
+			num2 = parseInt(num2,10);
+
+			//Check that numbers are within range
+			if(num1 > MAX_NUM){
+				errNo = errorEnum.NUM1_OUT_OF_RANGE;
+			}
+			else if(num2 > MAX_NUM){
+				errNo = errorEnum.NUM2_OUT_OF_RANGE;
+			}	
+			
+			//Check for zeroes
+			else if(num1 === 0){
+				errNo = errorEnum.NUM1_VAL_OF_ZERO;
+			}
+			else if(num2 === 0){
+				errNo = errorEnum.NUM2_VAL_OF_ZERO;
+			}
+			
+			//Check for one
+			else if(num1 === 1){
+				errNo = errorEnum.NUM1_VAL_OF_ONE;
+			} 
+			else if(num2 === 1){
+				errNo = errorEnum.NUM2_VAL_OF_ONE;
+			}
+			
+			//Check that the numbers are not the same, a modular integer ring of n
+			//contains numbers of 1,2, ... n-1
+			else if(num1 === num2){
+				errNo = errorEnum.SAME_NUMS;
+			}
+			
+		}
+	}
+
+	//No errors, proceed with calculations
+	if(errNo === errorEnum.NO_ERROR){
+		//NOTE: This is not an error, just something to help EEA.js along
+		if(num1 < num2){
+			//NOTE: I hear it's faster to use a tmpVariable then a one liner
+			var tmpNum = num1;
+			num1 = num2;
+			num2 = tmpNum;
+		}
+
+		EEA(num1, num2);
 	}
 	else{
-		alert("The first " + notPosIntErrStr);
-		//TODO Be fancy and clear out the text boxes?
-		return;
+		//Print out the error to the page
+		var errorStr = ERR_SPAN_STR + errorEnum.val[errNo].str;
+		errorStr += '</span>';
+		document.getElementById("GCD calcs").innerHTML = errorStr;
+
+		//clear the appropriate text box, every enum after
+		//the GCD error requires some box to be cleared
+		if(errNo > errorEnum.GCD_OF_ONE){
+			
+			//The even values correspond to the first text box
+			if((errNo % 2) === 0){
+				writeTextBox("num1Input", "");
+			}
+			//Odd ones the second text box
+			else{
+				writeTextBox("num2Input", "");
+			}
+		}
 	}
 
-
-	if(isPositiveInteger(num2)){
-		num2 = parseInt(num2,10);
-	}
-	else{
-		alert("The second " + notPosIntErrStr);
-		//TODO Be fancy and clear out the text boxes?
-		return;
-	}
-
-
-	//Double check that they are within range
-	if(num1 > MAX_NUM){
-		alert("Please enter a number between 1 and " + MAX_NUM.toString());
-		return;
-	}
-
-	else if(num2 > MAX_NUM){
-		alert("Please enter a number between 1 and " + MAX_NUM.toString());
-		return;
-	}
-
-	//Check for zeroes or ones
-	if((num1 === 0) || (num2 === 0)){
-		alert(zeroErrStr);
-		return;
-	}
-	else if((num1 === 1) || (num2 === 1)){
-		alert(oneErrStr);
-		return;
-	}
-
-	//Check that the numbers are not the same, a modular integer ring of n
-	//contains numbers of 1,2, ... n-1
-	if(num1 === num2){
-		alert(sameNumErrStr);
-		return;
-	}
-
-	//If num2 < num1, swap the numbers, because num1 should be a number
-	//with a multiplicative inverse mod num2 therefore mod2 is bigger
-	if(num1 < num2){
-		//NOTE: I hear it's faster to use a tmpVariable then a one liner
-		var tmpNum = num1;
-		num1 = num2;
-		num2 = tmpNum;
-	}
-
-	//If you got this far, proceed with the calculations.
-	EEA(num1, num2);
-	
 }
-
-
 
 /* 
 * Edits the value of the text boxes on the page.
