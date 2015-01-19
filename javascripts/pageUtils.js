@@ -163,6 +163,7 @@ function printCalculation(isGCD, Calc){
 		//First, reset the innerHTML because if this is a GCD printing,
 		//we're doing an entirely new calculation
 		document.getElementById("GCD calcs").innerHTML = "";
+		document.getElementById("inverse calcs").innerHTML = "";
 
 
 		//Now go and build the calcStr to be printed to the HTML page
@@ -179,15 +180,16 @@ function printCalculation(isGCD, Calc){
 			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
 			calcStr += " + ";
 			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
-			calcStr += "<br />";
+			calcStr += "<br /> <br />";
 		}
 		//Finally, print the calcStr out to the page
 		document.getElementById("GCD calcs").innerHTML += calcStr;
 	}
 	//We're printing the multiplicative inverse, much more complicated
 	else{
-		calcStr += "<br />";
-		for (var i = 0; i < Calc.length; i++) {
+		// calcStr += "<br />";
+
+		for (var i = Calc.length -1; i >= 0; i--) {
 			// calcStr = "";
 			tempPrintCalc = Calc[i];
 
@@ -237,7 +239,7 @@ function printCalculation(isGCD, Calc){
 			//Don't forget to add a newline so it's not all squished together
 			calcStr+= "<br />";
 		}
-		document.getElementById("GCD calcs").innerHTML += calcStr;
+		document.getElementById("inverse calcs").innerHTML += calcStr + "<br />";
 
 	}
 

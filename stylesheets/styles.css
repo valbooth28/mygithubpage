@@ -636,7 +636,47 @@ strong {
   font-weight: normal;
 }
 
+.calcWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 20px;
+  float: center;
+}
 
+div.left, div.right p {
+  color: #d7cfbe;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: normal;
+  font-size: 17px;
+  /*text-align: center;*/
+}
+
+div.left {
+  position: relative;
+  float: left;
+  /* if you want text aligned to the right side */
+  text-align: right;
+  /* have to set the width to 50% to get them both to display side-by-side */
+  width: 48%;
+  /*margin-right: 5px;*/
+  overflow: auto;
+}
+ 
+div.right {
+  position: relative;
+  float: right;
+  text-align: left;
+  width: 48%;
+  /*margin-left: 5px;*/
+  overflow: auto;
+}
+div.center{
+  position: relative;
+  float: center;
+  width: 4%;
+  overflow: auto;
+}
 
 .wrapper {
   max-width: 650px;
@@ -714,14 +754,9 @@ td {
   border-bottom: 1px solid #434343;
 }
 
-hr.inverse {
-    height: 30px;
-    border-style: solid;
-    border-color: #e8e8e8;
-    border-width: 1px 0 0 0;
-    border-radius: 20px;
-}
-    
+
+
+   
 
 hr.index {
   border: 0;
@@ -865,7 +900,7 @@ dt {
   top:1px;
 }
 
-#calc p {
+#gcd, #inverse p {
   color: #d7cfbe;
   font-family: "Courier New", Courier, monospace;
   font-weight: normal;
@@ -881,6 +916,20 @@ section {
   margin-top: 70px;
 }
 
+section #final {
+  margin-top: 120px;
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+}
+
+section #final p{
+  color: #d7cfbe;
+  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  text-align: center;
+}
 
 section #title {
   border: 0;
@@ -888,6 +937,8 @@ section #title {
   margin: 0 0 10px 0;
   padding: 0 0 5px 0;
 }
+
+
 section #title h1 {
   font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
