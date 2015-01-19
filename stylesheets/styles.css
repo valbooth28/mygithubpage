@@ -841,6 +841,29 @@ dt {
   font-weight: bold;
 }
 
+/*Thanks to: http://www.bestcssbuttongenerator.com/*/
+.myButton {
+  background-color:#90a954;
+  -moz-border-radius:9px;
+  -webkit-border-radius:9px;
+  border-radius:7px;
+  border:1px solid #81984b;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+  padding:2px 20px;
+  text-decoration:none;
+  text-shadow:0px 1px 26px #4d5b2d;
+}
+.myButton:hover {
+  background-color:#a6ba76;
+}
+.myButton:active {
+  position:relative;
+  top:1px;
+}
 
 #calc p {
   color: #d7cfbe;
