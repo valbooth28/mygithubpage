@@ -649,7 +649,6 @@ div.left, div.right p {
   font-family: "Courier New", Courier, monospace;
   font-weight: normal;
   font-size: 17px;
-  /*text-align: center;*/
 }
 
 div.left {
@@ -659,7 +658,7 @@ div.left {
   text-align: right;
   /* have to set the width to 50% to get them both to display side-by-side */
   width: 48%;
-  /*margin-right: 5px;*/
+  padding-right: 2%;
   overflow: auto;
 }
  
@@ -668,7 +667,7 @@ div.right {
   float: right;
   text-align: left;
   width: 48%;
-  /*margin-left: 5px;*/
+  padding-left: 2%;
   overflow: auto;
 }
 div.center{
@@ -870,7 +869,7 @@ dt {
   font-size: 20px;
 }
 
-.error{
+p .error{
   color: #ffffff;
   font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;

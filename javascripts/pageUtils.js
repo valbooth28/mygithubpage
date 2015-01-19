@@ -43,6 +43,9 @@ function readInput(){
 	var errNo = errorEnum.NO_ERROR; 
 	//Clear out any past results
 	document.getElementById("final inverse").innerHTML = "";
+	document.getElementById("GCD calcs").innerHTML = "";
+	document.getElementById("inverse calcs").innerHTML = "";
+	document.getElementById("errors").innerHTML = "";
 
 	//Grabs the input from the two text boxes
 	num1 = document.getElementById('num1Input').value;
@@ -100,6 +103,7 @@ function readInput(){
 
 	//No errors, proceed with calculations
 	if(errNo === errorEnum.NO_ERROR){
+
 		//NOTE: This is not an error, just something to help EEA.js along
 		if(num1 < num2){
 			//NOTE: I hear it's faster to use a tmpVariable then a one liner
@@ -114,7 +118,7 @@ function readInput(){
 		//Print out the error to the page
 		var errorStr = ERR_SPAN_STR + errorEnum.val[errNo].str;
 		errorStr += '</span>';
-		document.getElementById("GCD calcs").innerHTML = errorStr;
+		document.getElementById("errors").innerHTML = errorStr;
 
 		//clear the appropriate text box, every enum after
 		//the GCD error requires some box to be cleared

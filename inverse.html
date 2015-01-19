@@ -62,7 +62,7 @@
           <p></p>
           <hr class = "index">
           <h3>About:</h3>
-          <p> Just like a regular multiplicative inverse, where <strong>b</strong> is the inverse of <strong>a</strong> if<strong> a • b = 1</strong>, <strong>b</strong> is a <a href="http://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> of <strong> a mod c</strong> if <strong>a • b = 1 mod c</strong>. Below the modular multiplicative inverse is found by using the Extended Euclidean Algorithm to first confirm that the greatest common divisor of <strong>a</strong> and <strong>c</strong> is <strong>1</strong> on the left, then doing linear combinations to get the equation <strong> 1 = a • b + c • k</strong> on the right, where <strong>b</strong> is the inverse of <strong>a</strong>, and <strong>k</strong> is a constant.</p>
+          <p> Just like a regular multiplicative inverse, where <strong>b</strong> is the inverse of <strong>a</strong> if<strong> a • b = 1</strong>, <strong>b</strong> is a <a href="http://en.wikipedia.org/wiki/Modular_multiplicative_inverse">modular multiplicative inverse</a> of <strong> a mod c</strong> if <strong>a • b = 1 mod c</strong>. Below, on the left with calculations reading from top to bottom, the Extended Euclidean Algorithm is used to confirm that the greatest common divisor of <strong>a</strong> and <strong>c</strong> is <strong>1</strong>. Then, on the right with calculations reading from bottom to top, linear combinations are done to get the equation <strong> 1 = a • b + c • k</strong> where <strong>b</strong> is the the modular multiplicative inverse of <strong>a</strong>, and <strong>k</strong> is a constant.</p>
           <h3>Calculations:</h3>
           <p>Please enter two positive integers <strong>c</strong> and <strong>a</strong> less than 50,000,000 and without commas into the two respective boxes below. <i>Note:</i> This algorithm works particularly well with prime <strong>c</strong> values, because every number between 1 and <strong>c</strong> will have a multiplicative inverse. Some large prime values within range are: <a id = "primeLink1" href ="/">49999759</a>, <a id = "primeLink2" href ="javascript: void(0)">49999883</a> and <a id = "primeLink3" href ="javascript: void(0)">49999991</a>.  </p>
           <p>
@@ -72,16 +72,17 @@
           <button type="button" onclick="readInput()" class="myButton">Find the Inverse</button>
           
           </p>
+          <p id="errors" class ="errors"></p>
           </div>
         </section>
         </div>
          
-        
+          
           <div class="left">
           <p id="GCD calcs"></p>
           </div>
           
-          <div class ="center"></div>
+          <!-- <div class ="center"></div> -->
 
           <div class= "right">
           <p id="inverse calcs"></p>

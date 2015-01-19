@@ -92,7 +92,7 @@ function EEA(num1, num2){
 		gcdStr += GCD.toString() + ".\n";
 		gcdStr += errorEnum.val[errorEnum.GCD_OF_ONE].str + '</span>';
 
-		document.getElementById("GCD calcs").innerHTML = gcdStr;
+		document.getElementById("errors").innerHTML = gcdStr;
 		//For testing purposes
 		// return GCD;
 	}
