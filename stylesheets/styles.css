@@ -869,7 +869,7 @@ dt {
   font-size: 20px;
 }
 
-p .error{
+.error{
   color: #ffffff;
   font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;

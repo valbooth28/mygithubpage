@@ -26,7 +26,7 @@ function super_accuracy_test1(){
 function super_time_test(){
 	//priming the html for later
 	document.getElementById("test").innerHTML = "";
-
+	//These primes taken from: http://primes.utm.edu/
 	var ranges1  = [49999759,  49999777,  49999783,  49999801,  49999819,  49999843,  49999847,  49999853]; 
 	var ranges2  = [49999877,  49999883,  49999897,  49999903,  49999921,  49999991,  50000017,  50000021];
 	var ranges3  = [50000047,  50000059,  50000063,  50000101,  50000131,  50000141,  50000161,  50000201]; 
@@ -70,7 +70,13 @@ function accuracy_test1(range){
 	
 }
 
+/*
+	This function is aiming to try and find pairs of numbers that will 
+	produce lots of individual calculations
+*/
+function long_calc_test(){
 
+}
 
 /**
 	Tests how accurate our GCD algorithm is by runnig EEA in situations
@@ -135,11 +141,6 @@ function print_results(trueCount, numTests, falseResults){
 	be. I think I don't want calculations to take longer than 5 seconds I think
 */
 function time_test(ranges){
-	//These primes taken from: http://primes.utm.edu/
-	
-
-	
-	
 	//Maybe up this later? Running multiple tests per range because
 	//different numbers have differing numbers of calculations
 	var iterations = 100;	
