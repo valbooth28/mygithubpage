@@ -41,6 +41,7 @@ function readInput(){
 	
 	//Presetting to be no error
 	var errNo = errorEnum.NO_ERROR; 
+	
 	//Clear out any past results
 	document.getElementById("final inverse").innerHTML = "";
 	document.getElementById("GCD calcs").innerHTML = "";
@@ -116,7 +117,7 @@ function readInput(){
 	}
 	else{
 		//Print out the error to the page
-		var errorStr = ERR_SPAN_STR + errorEnum.val[errNo].str;
+		var errorStr = ERR_SPAN_STR+ errorEnum.val[errNo].str;
 		errorStr += '</span>';
 		document.getElementById("errors").innerHTML = errorStr;
 
@@ -161,16 +162,9 @@ function printCalculation(isGCD, Calc){
 	var newValue;
 	//TODO: when we're in multiplicative inverse check for 1s that we don't
 	//need to print LOW PRIORITY
-	//TODO: Variable for document.getElementByID call?
 
 	if(isGCD){
-		//First, reset the innerHTML because if this is a GCD printing,
-		//we're doing an entirely new calculation
-		document.getElementById("GCD calcs").innerHTML = "";
-		document.getElementById("inverse calcs").innerHTML = "";
-
-
-		//Now go and build the calcStr to be printed to the HTML page
+		//Go and build the calcStr to be printed to the HTML page
 		//by adding each number in the GCD calc w/appropriate
 		//expressions
 		for (var i = 0; i < Calc.length; i++) {
@@ -189,6 +183,7 @@ function printCalculation(isGCD, Calc){
 		//Finally, print the calcStr out to the page
 		document.getElementById("GCD calcs").innerHTML += calcStr;
 	}
+
 	//We're printing the multiplicative inverse, much more complicated
 	else{
 		// calcStr += "<br />";
@@ -205,8 +200,6 @@ function printCalculation(isGCD, Calc){
 				if(newValue.constructor === Array){
 					calcStr += "(";
 					calcStr += newValue[0].toString();
-					//TODO: Better fix later
-					//calcStr += " - ";
 					calcStr += " - "+ Math.abs(newValue[1]).toString();
 					calcStr += MULT_STR;
 					calcStr += newValue[2].toString();
