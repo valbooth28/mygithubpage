@@ -65,6 +65,7 @@ function readInput(){
 		if(!isPositiveInteger(num2)){
 			errNo = errorEnum.NUM2_NOT_POS_INT;
 		}
+
 		//It is, keep going
 		else{
 			num2 = parseInt(num2,10);
@@ -121,7 +122,7 @@ function readInput(){
 		errorStr += '</span>';
 		document.getElementById("errors").innerHTML = errorStr;
 
-		//clear the appropriate text box, every enum after
+		//clear the appropriate text box, every enum value after
 		//the GCD error requires some box to be cleared
 		if(errNo > errorEnum.GCD_OF_ONE){
 			
@@ -154,12 +155,13 @@ function writeTextBox(boxID, boxValue){
 * @param Calc: an array of arrays
 */
 function printCalculation(isGCD, Calc){
-	//Defining this str specifically because I can't decide what I want it to be
+	//Defining this str specifically in case I change my mind about what it is
 	var MULT_STR = " • ";
 
 	var calcStr = "";
 	var tempPrintCalc;
 	var newValue;
+	var calcLen =  Calc.length;
 	//TODO: when we're in multiplicative inverse check for 1s that we don't
 	//need to print LOW PRIORITY
 
@@ -167,7 +169,7 @@ function printCalculation(isGCD, Calc){
 		//Go and build the calcStr to be printed to the HTML page
 		//by adding each number in the GCD calc w/appropriate
 		//expressions
-		for (var i = 0; i < Calc.length; i++) {
+		for (var i = 0; i < calcLen ; i++) {
 			
 			tempPrintCalc = Calc[i];
 
@@ -178,7 +180,18 @@ function printCalculation(isGCD, Calc){
 			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
 			calcStr += " + ";
 			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
-			calcStr += "<br /> <br />";
+			
+			//the last two calculations will be right next to each other,
+			//for easy comparison with the inverse calcs
+			if(i < calcLen -2){
+				calcStr += "<br />";
+			}
+			else{
+				//all others are given extra space for room to show
+				//combinations on inverse side
+				calcStr += "<br /> <br />";
+			}
+			
 		}
 		//Finally, print the calcStr out to the page
 		document.getElementById("GCD calcs").innerHTML += calcStr;
@@ -186,10 +199,9 @@ function printCalculation(isGCD, Calc){
 
 	//We're printing the multiplicative inverse, much more complicated
 	else{
-		// calcStr += "<br />";
 
 		for (var i = Calc.length -1; i >= 0; i--) {
-			// calcStr = "";
+			
 			tempPrintCalc = Calc[i];
 
 			for(var j = 0; j <tempPrintCalc.length; j++){
@@ -222,8 +234,6 @@ function printCalculation(isGCD, Calc){
 						break;
 
 					case 2:
-						//TODO: Better fix later
-						//calcStr += " - ";
 						break;
 
 					case 3:

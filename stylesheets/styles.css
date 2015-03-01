@@ -876,7 +876,7 @@ dt {
 }
 
 /*Thanks to: http://www.bestcssbuttongenerator.com/*/
-.myButton {
+.inverse {
   background-color:#90a954;
   -moz-border-radius:9px;
   -webkit-border-radius:9px;
@@ -891,12 +891,28 @@ dt {
   text-decoration:none;
   text-shadow:0px 1px 26px #4d5b2d;
 }
-.myButton:hover {
+.inverse:hover {
   background-color:#a6ba76;
 }
-.myButton:active {
+.inverse:active {
   position:relative;
   top:1px;
+}
+
+/*Note: Image used from: https://brand.linkedin.com/visual-identity/logo*/
+.linkedIn{
+font-size: 18px;
+border: 2px solid #AD235E;
+border-radius: 100px;
+width: 150px;
+height: 150px; 
+background-image: url("images/linkedIn.png");
+background-repeat: no-repeat;
+}
+
+/*Note: Image used from: https://github.com/logos*/
+.github{
+
 }
 
 #gcd, #inverse p {
