@@ -197,7 +197,7 @@ function printCalculation(isGCD, Calc){
 			//the last two calculations will be right next to each other,
 			//for easy comparison with the inverse calcs
 			if(i === calcLen -2){
-				calcStr = "<br />" + calcStr + "<br />";
+				calcStr = "<br /><br />" + calcStr + "<br />";
 			}
 			else{
 				//all others are given extra space for room to show
@@ -272,7 +272,7 @@ function printCalculation(isGCD, Calc){
 			//Don't forget to add a newline so it's not all squished together
 			calcStr+= "<br />";
 		}
-		document.getElementById("inverse calcs").innerHTML += calcStr + "<br />";
+		document.getElementById("inverse calcs").innerHTML += calcStr + "<br /><br />";
 
 	}
 
