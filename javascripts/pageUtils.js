@@ -173,20 +173,21 @@ function printCalculation(isGCD, Calc){
 		for (var i = 0; i < calcLen ; i++) {
 			
 			tempPrintCalc = Calc[i];
-			//starting equation accent
-			calcStr += eqAccentSpan;
+			//starting equation accent if not the last equation
+			if(i !== calcLen-1){
+				calcStr += eqAccentSpan;
+			}
 			calcStr += tempPrintCalc[RESULT_INDEX].toString();
 			calcStr += " = ";
 			calcStr += tempPrintCalc[DIVID_INDEX].toString();
 			calcStr += MULT_STR;
-			//ending equation accent
-			calcStr += tempPrintCalc[DIVIS_INDEX].toString() + "</span>";
+			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
 			
-			//and starting mod accent (unless first eq)
+			//ending equation accent and starting mod accent
 			if(i !== calcLen-1){
-				calcStr += modAccentSpan;
+				calcStr += "</span>" + modAccentSpan;
 			}
-
+			
 			calcStr += " + " + tempPrintCalc[REMAIN_INDEX].toString();
 			
 			if(i !== calcLen-1){
