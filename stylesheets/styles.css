@@ -875,6 +875,16 @@ dt {
   font-weight: bold;
 }
 
+.eqAccent{
+  color: #5dbede;
+  /*font-family: "Courier New", Courier, monospace;*/
+}
+
+.modAccent{
+  color: #DE7D5D;
+  font-family: "Courier New", Courier, monospace;
+}
+
 /*Thanks to: http://www.bestcssbuttongenerator.com/*/
 .inverse {
   background-color:#90a954;

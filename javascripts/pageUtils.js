@@ -8,7 +8,8 @@
 //NOTE: The upper limit for the EEA calculation, chosen because 100 million was
 //occasionally having some accuracy issues, 50 million's a good number
 MAX_NUM = 50000000;
-
+eqAccentSpan = '<span class="eqAccent">';
+modAccentSpan = '<span class="modAccent">';
 
 /* 
 * Helper function for readInput.
@@ -172,19 +173,31 @@ function printCalculation(isGCD, Calc){
 		for (var i = 0; i < calcLen ; i++) {
 			
 			tempPrintCalc = Calc[i];
-
+			//starting equation accent
+			calcStr += eqAccentSpan;
 			calcStr += tempPrintCalc[RESULT_INDEX].toString();
 			calcStr += " = ";
 			calcStr += tempPrintCalc[DIVID_INDEX].toString();
 			calcStr += MULT_STR;
-			calcStr += tempPrintCalc[DIVIS_INDEX].toString();
-			calcStr += " + ";
-			calcStr += tempPrintCalc[REMAIN_INDEX].toString();
+			//ending equation accent
+			calcStr += tempPrintCalc[DIVIS_INDEX].toString() + "</span>";
+			
+			//and starting mod accent (unless first eq)
+			if(i !== calcLen-1){
+				calcStr += modAccentSpan;
+			}
+
+			calcStr += " + " + tempPrintCalc[REMAIN_INDEX].toString();
+			
+			if(i !== calcLen-1){
+				calcStr+= "</span>";
+			}
+
 			
 			//the last two calculations will be right next to each other,
 			//for easy comparison with the inverse calcs
-			if(i < calcLen -2){
-				calcStr += "<br />";
+			if(i === calcLen -2){
+				calcStr = "<br />" + calcStr + "<br />";
 			}
 			else{
 				//all others are given extra space for room to show
@@ -199,7 +212,7 @@ function printCalculation(isGCD, Calc){
 
 	//We're printing the multiplicative inverse, much more complicated
 	else{
-
+		var tmpAccentVar = -1;
 		for (var i = Calc.length -1; i >= 0; i--) {
 			
 			tempPrintCalc = Calc[i];
@@ -210,18 +223,31 @@ function printCalculation(isGCD, Calc){
 				//Checking if an element is an array. Evidence online shows this
 				//is the fastest way to check
 				if(newValue.constructor === Array){
-					calcStr += "(";
+					//start highlighting
+					calcStr += eqAccentSpan+ "(";
 					calcStr += newValue[0].toString();
 					calcStr += " - "+ Math.abs(newValue[1]).toString();
 					calcStr += MULT_STR;
 					calcStr += newValue[2].toString();
-					calcStr += ")";
+					//end highlighting
+					calcStr += ") </span>";
+
+					//Also, save this index so that the equation we're
+					//swapping out for us, below us, gets highlighted
+					tmpAccentVar = j;
 				}
 				else{
 					if(newValue < 0){
 						calcStr += " - ";
 					}
-					calcStr += Math.abs(newValue).toString()
+					if(j === tmpAccentVar){
+						calcStr += modAccentSpan;
+					}
+					calcStr += Math.abs(newValue).toString();
+					if(j === tmpAccentVar){
+						calcStr += "</span>";
+						tmpAccentVar = -1;
+					}
 				}
 
 				switch(j){
