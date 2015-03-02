@@ -1,13 +1,13 @@
 /**
  * File: pageUtils.js
  * Author: Val Booth <vxb4825@rit.edu>
- * Purpose: Functions that deal any HTML aspects of the page.
- * TODO: Make a function that edits the innerHTML elements
+ * Purpose: Functions that deal with any HTML aspects of the page.
   **/
 
 //NOTE: The upper limit for the EEA calculation, chosen because 100 million was
 //occasionally having some accuracy issues, 50 million's a good number
 MAX_NUM = 50000000;
+//Span classes that allow for highlighting the the gcd and inverse calcs
 eqAccentSpan = '<span class="eqAccent">';
 modAccentSpan = '<span class="modAccent">';
 
@@ -20,8 +20,10 @@ modAccentSpan = '<span class="modAccent">';
 function isPositiveInteger(n) {
 	//Is it a number? Is it finite? 
 	var bool = !isNaN(parseFloat(n)) && isFinite(n);
+	
 	//Does it have a decimal or negative sign?
 	bool = bool && (n.indexOf(".") === -1) && (n.indexOf("-") === -1);
+	
 	//Does it have an e in it? We're going to say e is not proper notation here
 	//Thanks to Adam @aem1269 for the insight
 	bool = bool && (n.indexOf("e") === -1);
@@ -115,11 +117,11 @@ function readInput(){
 			num2 = tmpNum;
 		}
 
-		EEA(num1, num2);
+		gcd(num1, num2);
 	}
 	else{
 		//Print out the error to the page
-		var errorStr = ERR_SPAN_STR+ errorEnum.val[errNo].str;
+		var errorStr = ERR_SPAN_STR + errorEnum.val[errNo].str;
 		errorStr += '</span>';
 		document.getElementById("errors").innerHTML = errorStr;
 
@@ -140,6 +142,7 @@ function readInput(){
 
 }
 
+
 /* 
 * Edits the value of the text boxes on the page.
 * @param boxID: the id of the box on the page, might make an array later
@@ -149,6 +152,7 @@ function writeTextBox(boxID, boxValue){
 	var textBox = document.getElementById(boxID);
 	textBox.value = boxValue;
 }
+
 
 
 /*
@@ -164,19 +168,21 @@ function printCalculation(isGCD, Calc){
 	var newValue;
 	var calcLen =  Calc.length;
 	//TODO: when we're in multiplicative inverse check for 1s that we don't
-	//need to print LOW PRIORITY
+	//need to print (LOW PRIORITY)
 
 	if(isGCD){
 		//Go and build the calcStr to be printed to the HTML page
-		//by adding each number in the GCD calc w/appropriate
+		//by concatenating each number in the GCD calc w/appropriate
 		//expressions
 		for (var i = 0; i < calcLen ; i++) {
 			
 			tempPrintCalc = Calc[i];
-			//starting equation accent if not the last equation
+			
+			//starting equation accent span, if not the last equation
 			if(i !== calcLen-1){
 				calcStr += eqAccentSpan;
 			}
+
 			calcStr += tempPrintCalc[RESULT_INDEX].toString();
 			calcStr += " = ";
 			calcStr += tempPrintCalc[DIVID_INDEX].toString();
@@ -190,6 +196,7 @@ function printCalculation(isGCD, Calc){
 			
 			calcStr += " + " + tempPrintCalc[REMAIN_INDEX].toString();
 			
+
 			if(i !== calcLen-1){
 				calcStr+= "</span>";
 			}
@@ -207,6 +214,7 @@ function printCalculation(isGCD, Calc){
 			}
 			
 		}
+
 		//Finally, print the calcStr out to the page
 		document.getElementById("GCD calcs").innerHTML += calcStr;
 	}
@@ -214,10 +222,13 @@ function printCalculation(isGCD, Calc){
 	//We're printing the multiplicative inverse, much more complicated
 	else{
 		var tmpAccentVar = -1;
+
+		//for every calculation
 		for (var i = Calc.length -1; i >= 0; i--) {
 			
 			tempPrintCalc = Calc[i];
 
+			//for every index of that calculation
 			for(var j = 0; j <tempPrintCalc.length; j++){
 				newValue = tempPrintCalc[j];
 				
@@ -241,10 +252,15 @@ function printCalculation(isGCD, Calc){
 					if(newValue < 0){
 						calcStr += " - ";
 					}
+
+					//Previous calculations show this is about to be subbed in,
+					//so we need to accent it
 					if(j === tmpAccentVar){
 						calcStr += modAccentSpan;
 					}
+
 					calcStr += Math.abs(newValue).toString();
+					
 					if(j === tmpAccentVar){
 						calcStr += "</span>";
 						tmpAccentVar = -1;
@@ -270,9 +286,11 @@ function printCalculation(isGCD, Calc){
 				}
 
 			}
+
 			//Don't forget to add a newline so it's not all squished together
 			calcStr+= "<br />";
 		}
+		//Print it out to the page
 		document.getElementById("inverse calcs").innerHTML += calcStr + "<br /><br />";
 
 	}
