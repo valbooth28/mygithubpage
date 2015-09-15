@@ -351,6 +351,11 @@ img {
   -ms-interpolation-mode: bicubic;
   /* 2 */
 }
+ing.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /*
  * Corrects overflow displayed oddly in IE9
@@ -606,18 +611,35 @@ a.rit:hover {
 }
 
 
-a.project{
+.project{
   font-size: 16px;
   color: #90A954;
   margin-top: +0.3em;
   display: block;
 }
 
-a.project:hover {
+.sub-project{
+  font-size: 14px;
+  margin-top: +0.3em;
+  display: block;
   color: #bccb98;
 }
 
+.UX-cert-heading{
+  font-size: 20px;
+  color: #90A954;
+  margin-top: +0.3em;
+  /*text-align: center;*/
+  display: block;
+}
 
+.UX-cert-subheading{
+  font-size: 18px;
+  margin-top: +0.3em;
+  display: block;
+  /*text-align: center;*/
+  color: #bccb98;
+}
 .gcdCalc{
   id: GCD Calcs;
 }
