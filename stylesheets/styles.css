@@ -68,6 +68,19 @@
   -webkit-font-smoothing: antialiased;
 }
 
+@font-face {
+    font-family: 'code_pro_demoregular';
+    src: url('../fonts/Code_Pro_Demo-webfont.eot');
+    src: url('../fonts/Code_Pro_Demo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Code_Pro_Demo-webfont.woff2') format('woff2'),
+         url('../fonts/Code_Pro_Demo-webfont.woff') format('woff'),
+         url('../fonts/Code_Pro_Demo-webfont.ttf') format('truetype'),
+         url('../fonts/Code_Pro_Demo-webfont.svg#code_pro_demoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /* normalize.css 2012-02-07T12:37 UTC - http://github.com/necolas/normalize.css */
 /* =============================================================================
    HTML5 display definitions
@@ -193,7 +206,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1.17em;
   margin: 1.33em 0;
 }
 
@@ -535,8 +548,8 @@ table {
 
 body {
   padding: 0px 0 20px 0px;
-  margin: 0px;
-  font: 14px/1.5 "OpenSansRegular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0px; 
+  font: 14px/1.5 "Hack", Hack, monospace;
   color: #f0e7d5;
   font-weight: normal;
   background: #252525;
@@ -552,7 +565,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #e8e8e8;
   margin: 0 0 10px;
-  font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'code_pro_demoregular';
   font-weight: normal;
 }
 
@@ -577,9 +590,9 @@ h4, h5, h6 {
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 22px;
   line-height: 24px;
-  font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  /*font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
   font-weight: normal;
   color: #b6b6b6;
 }
@@ -612,14 +625,16 @@ a.rit:hover {
 
 
 .project{
-  font-size: 16px;
+  font-size: 18px;
+  font-family: 'code_pro_demoregular';
   color: #90A954;
   margin-top: +0.3em;
   display: block;
 }
 
 .sub-project{
-  font-size: 14px;
+  font-size: 16px;
+  font-family: 'code_pro_demoregular';
   margin-top: +0.3em;
   display: block;
   color: #bccb98;
@@ -629,7 +644,6 @@ a.rit:hover {
   font-size: 20px;
   color: #90A954;
   margin-top: +0.3em;
-  /*text-align: center;*/
   display: block;
 }
 
@@ -637,7 +651,6 @@ a.rit:hover {
   font-size: 18px;
   margin-top: +0.3em;
   display: block;
-  /*text-align: center;*/
   color: #bccb98;
 }
 .gcdCalc{
@@ -645,8 +658,13 @@ a.rit:hover {
 }
 
 
+
 ul {
   list-style-image: url("../images/bullet.png");
+}
+
+li.expandable {
+  list-style-image: url("../images/down-bullet.png");
 }
 
 ul li { 
@@ -720,9 +738,10 @@ blockquote {
 code {
   font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color: #efefef;
+  background-color: #5e5e5e;
   font-size: 13px;
-  margin: 0 4px;
-  padding: 4px 6px;
+  /*margin: 0 4px;*/
+  padding: 2px 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -o-border-radius: 2px;
@@ -774,10 +793,7 @@ td {
   padding: 5px 10px;
   border-bottom: 1px solid #434343;
 }
-
-
-
-   
+ 
 
 hr.index {
   border: 0;
@@ -971,23 +987,22 @@ section #final {
 }
 
 section #final p{
-  color: #d7cfbe;
-  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  font-size: 18px;
+  color: #e8e8e8;
+  font-family: 'code_pro_demoregular';
+  font-size: 16px;
   text-align: center;
 }
 
 section #title {
   border: 0;
   outline: none;
-  margin: 0 0 10px 0;
+  margin: 0 0 25px 0;
   padding: 0 0 5px 0;
 }
 
 
 section #title h1 {
-  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'code_pro_demoregular';
   font-weight: normal;
   font-size: 40px;
   text-align: center;
@@ -995,14 +1010,14 @@ section #title h1 {
 }
 section #title p {
   color: #d7cfbe;
-  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Hack", Hack, monospace;
   font-weight: normal;
   font-size: 18px;
   text-align: center;
 }
 section #title .credits {
-  font-size: 11px;
-  font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-family: "Hack", Hack, monospace;
   font-weight: normal;
   color: #696969;
   margin-top: -10px;
