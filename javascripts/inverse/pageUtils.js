@@ -1,7 +1,7 @@
 /**
  * File: pageUtils.js
  * Author: Val Booth <vxb4825@rit.edu>
- * Purpose: Functions that deal with any HTML aspects of the page.
+ * Purpose: Functions that deal with any HTML aspects of the inverse page.
   **/
 
 //NOTE: The upper limit for the EEA calculation, chosen because 100 million was
