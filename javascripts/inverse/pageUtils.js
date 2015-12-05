@@ -25,7 +25,7 @@ function isPositiveInteger(n) {
 	bool = bool && (n.indexOf(".") === -1) && (n.indexOf("-") === -1);
 	
 	//Does it have an e in it? We're going to say e is not proper notation here
-	//Thanks to Adam @aem1269 for the insight
+	//Thanks to Adam @amccarthy1 for the insight
 	bool = bool && (n.indexOf("e") === -1);
 	return bool;
 }
