@@ -623,6 +623,17 @@ a.rit:hover {
   color: #f69963;
 }
 
+a.intuit {
+  /*Intuit blue, from their internal brand portal*/
+  color: #0077C5;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a.intuit:hover {
+  /*Another reccommended blue from the intuit internal brand portal*/
+  color: #0097E6;
+}
 
 .project{
   font-size: 18px;
