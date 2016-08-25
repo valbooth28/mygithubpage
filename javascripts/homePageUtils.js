@@ -7,14 +7,14 @@
 $(document).ready(function(){
 	var downURL = "url(\"./images/down-bullet.png\")";
 	var upURL = "url(\"./images/up-bullet.png\")";
-   $('li.expandable').click(function(){
-   		var subRegion = $(this).find('div.sub-region');
+   $('li.expandable .project').click(function(){
+   		var subRegion = $(this).parent().find('div.sub-region');
    		if(subRegion.css("display").localeCompare("none") == 0){
    			subRegion.css("display", "inline-block");
-   			$(this).css("list-style-image", upURL);
+   			$(this).parent().css("list-style-image", upURL);
    		}else{
    			subRegion.css("display", "none");
-   			$(this).css("list-style-image", downURL);
+   			$(this).parent().css("list-style-image", downURL);
    		}
    });
 })
