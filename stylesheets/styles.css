@@ -641,6 +641,8 @@ a.intuit:hover {
   color: #90A954;
   margin-top: +0.3em;
   display: block;
+  cursor: pointer;
+  cursor: hand;/*compatibility with old derp ie*/
 }
 
 .sub-project{
